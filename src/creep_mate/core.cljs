@@ -15,10 +15,12 @@
 (defn is-peeping?
   [creep]
   (let [fov (field-of-vision creep)
-        fov-left (:x fov)
-        fov-right (+ (:x fov) (:width fov))
-        fov-top (:y fov)
-        fov-bottom (+ (:y fov) (:height fov))]
+        fov-x-abs (+ (:x creep) (:x fov))
+        fov-y-abs (+ (:y creep) (:y fov))
+        fov-left fov-x-abs
+        fov-right (+ fov-x-abs (:width fov))
+        fov-top fov-y-abs
+        fov-bottom (+ fov-y-abs (:height fov))]
     (and
       (or (< fov-left
              (+ (:x @state) player-size)
