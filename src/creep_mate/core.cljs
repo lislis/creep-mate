@@ -10,7 +10,7 @@
 (defonce game (p/create-game screen-x screen-y))
 (defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
 
-(declare fight-screen fight-load-screen field-of-vision)
+(declare fight-load-screen fight-load-screen-2 fight-screen field-of-vision)
 
 (defn glitch-canvas!
   []
@@ -29,7 +29,8 @@
           (.-width (p/get-canvas game))
           (.-height (p/get-canvas game)))))
   (p/set-screen game fight-load-screen)
-  (js/setTimeout #(p/set-screen game fight-screen) 2000))
+  (js/setTimeout #(p/set-screen game fight-load-screen-2) 2000)
+  (js/setTimeout #(p/set-screen game fight-screen) 5000))
 
 (defn is-peeping?
   [creep]
@@ -156,16 +157,6 @@
          (map render-creep (:creeps @state))
          (render-player)]))))
 
-(def fight-screen
-  (reify p/Screen
-    (on-show [this])
-    (on-hide [this])
-    (on-render [this]
-      (p/render game
-        [(render-fight-background)
-         [:fill {:color "white"}
-          [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y 20 :size 16 :font "Georgia"}]]]))))
-
 (def fight-load-screen
   (reify p/Screen
     (on-show [this])
@@ -190,6 +181,33 @@
            [:rect {:x 200 :y 200 :width 20 :height 20}]
            [:rect {:x 220 :y 220 :width 20 :height 20}]]
           [[:rect {:x 0 :y 0 :width 20 :height 20}]]]]))))
+
+(def fight-load-screen-2
+  (reify p/Screen
+    (on-show [this])
+    (on-hide [this])
+    (on-render [this]
+      (p/render game
+        [(render-fight-background)
+         [:fill {:color "white"}
+          [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y 20 :size 16 :font "Georgia"}]]]))))
+
+(def fight-screen
+  (reify p/Screen
+    (on-show [this]
+      (p/load-image game "images/dave.png"))
+    (on-hide [this])
+    (on-render [this]
+      (p/render game
+        [[:image {:name "images/dave.png"
+                  :x 20 :y 20
+                  :width 262 :height 270}]
+         [:fill {:color "lightgrey"}
+          [:rect {:x 0 :y (- screen-y 200) :width screen-x :height 200}
+           [:fill {:color "black"}
+            [:text {:value (str (:name (:current-creep @state)) ": hello honey, can i get your number?") :x 20 :y 60 :size 30 :font "Courier"}]]]]]))))
+
+; (swap! state assoc :current-creep {:x 100 :y -40 :direction :up :name "dave"})
 
 (doto game
   (p/start)
