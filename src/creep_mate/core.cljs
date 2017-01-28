@@ -24,8 +24,9 @@
   (swap! state assoc :canvas-data
     (-> (p/get-canvas game)
         (.getContext "2d")
-        ; real canvas is double size (retina?)
-        (.getImageData 0 0 (* screen-x 2) (* screen-y 2))))
+        (.getImageData 0 0
+          (.-width (p/get-canvas game))
+          (.-height (p/get-canvas game)))))
   (p/set-screen game fight-load-screen)
   (js/setTimeout #(p/set-screen game fight-screen) 2000))
 
