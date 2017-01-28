@@ -1,4 +1,4 @@
-(ns tmp.core
+(ns creep-mate.core
   (:require [play-cljs.core :as p]))
 
 (defonce game (p/create-game 500 500))
@@ -20,4 +20,3 @@
 (doto game
   (p/start)
   (p/set-screen main-screen))
-
