@@ -8,9 +8,21 @@
 (def screen-y 600)
 
 (defonce game (p/create-game screen-x screen-y))
-(defonce state (atom {:x 0, :y 0, :creeps #{}}))
+(defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
 
-(declare fight-screen field-of-vision)
+(declare fight-screen fight-load-screen field-of-vision)
+
+(defn enter-fight-screen!
+  [current-creep]
+  (swap! state assoc :mode :fight)
+  (swap! state assoc :current-creep current-creep)
+  (swap! state assoc :canvas-data
+    (-> (p/get-canvas game)
+        (.getContext "2d")
+        ; real canvas is double size (retina?)
+        (.getImageData 0 0 (* screen-x 2) (* screen-y 2))))
+  (p/set-screen game fight-load-screen)
+  (js/setTimeout #(p/set-screen game fight-screen) 2000))
 
 (defn is-peeping?
   [creep]
@@ -40,8 +52,7 @@
   (let [peeping-creeps (filter is-peeping? (:creeps @state))]
     ; (js/console.log (force peeping-creeps))
     (when-let [current-creep (first peeping-creeps)]
-      (swap! state assoc :current-creep current-creep)
-      (p/set-screen game fight-screen))))
+      (enter-fight-screen! current-creep))))
 
 (defn update-state!
   []
@@ -146,16 +157,42 @@
          [:fill {:color "white"}
           [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y 20 :size 16 :font "Georgia"}]]]))))
 
+(def fight-load-screen
+  (reify p/Screen
+    (on-show [this])
+    (on-hide [this])
+    (on-render [this]
+      (-> (p/get-canvas game)
+          (.getContext "2d")
+          (.putImageData (:canvas-data @state) 0 0))
+      (p/render game
+        [:fill {:color "black"}
+         [:animation {:duration 200}
+          [[:rect {:x 0 :y 0 :width 20 :height 20}]
+           [:rect {:x 20 :y 20 :width 20 :height 20}]
+           [:rect {:x 40 :y 40 :width 20 :height 20}]
+           [:rect {:x 60 :y 60 :width 20 :height 20}]
+           [:rect {:x 80 :y 80 :width 20 :height 20}]
+           [:rect {:x 100 :y 100 :width 20 :height 20}]
+           [:rect {:x 120 :y 120 :width 20 :height 20}]
+           [:rect {:x 140 :y 140 :width 20 :height 20}]
+           [:rect {:x 160 :y 160 :width 20 :height 20}]
+           [:rect {:x 180 :y 180 :width 20 :height 20}]
+           [:rect {:x 200 :y 200 :width 20 :height 20}]
+           [:rect {:x 220 :y 220 :width 20 :height 20}]]
+          [[:rect {:x 0 :y 0 :width 20 :height 20}]]]]))))
+
 (doto game
   (p/start)
   (p/set-screen main-screen))
 
 (events/listen js/window "keydown"
                  (fn [^js/KeyboardEvent event]
-                   (let [key (.-keyCode event)]
-                     (case key
-                       87 (move :up)     ; w
-                       65 (move :left)   ; a
-                       83 (move :down)   ; s
-                       68 (move :right)  ; d
-                       false))))
+                   (when (= (:mode @state) :walk)
+                     (let [key (.-keyCode event)]
+                       (case key
+                         87 (move :up)     ; w
+                         65 (move :left)   ; a
+                         83 (move :down)   ; s
+                         68 (move :right)  ; d
+                         false)))))
