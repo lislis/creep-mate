@@ -40,6 +40,7 @@
   (let [peeping-creeps (filter is-peeping? (:creeps @state))]
     ; (js/console.log (force peeping-creeps))
     (when-let [first-creep (first peeping-creeps)]
+      (js/bgsound.stop)
       (p/set-screen game fight-screen))))
 
 (defn update-state!
@@ -122,6 +123,7 @@
 (def main-screen
   (reify p/Screen
     (on-show [this]
+      (js/bgsound.play)
       (swap! state assoc
         :creeps #{{:x 100 :y -40 :direction :up}
                   {:x 200 :y -40 :direction :right}
@@ -137,7 +139,8 @@
 
 (def fight-screen
   (reify p/Screen
-    (on-show [this])
+    (on-show [this]
+      (js/battlesound.play))
     (on-hide [this])
     (on-render [this]
       (p/render game
