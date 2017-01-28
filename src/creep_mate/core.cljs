@@ -18,9 +18,10 @@
 
 (defn enter-fight-screen!
   [current-creep]
-  (glitch-canvas!)
   (swap! state assoc :mode :fight)
   (swap! state assoc :current-creep current-creep)
+  (js/battlesound.play)
+  (glitch-canvas!)
   (swap! state assoc :canvas-data
     (-> (p/get-canvas game)
         (.getContext "2d")
@@ -58,6 +59,7 @@
   (let [peeping-creeps (filter is-peeping? (:creeps @state))]
     ; (js/console.log (force peeping-creeps))
     (when-let [current-creep (first peeping-creeps)]
+      (js/bgsound.stop)
       (enter-fight-screen! current-creep))))
 
 (defn update-state!
@@ -140,6 +142,7 @@
 (def main-screen
   (reify p/Screen
     (on-show [this]
+      (js/bgsound.play)
       (swap! state assoc
         :creeps #{{:x 100 :y -40 :direction :up :name "dave"}
                   {:x 200 :y -40 :direction :right :name "steve"}
