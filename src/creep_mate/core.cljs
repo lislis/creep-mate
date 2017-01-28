@@ -199,9 +199,17 @@
     (on-hide [this])
     (on-render [this]
       (p/render game
-        [[:image {:name "images/dave.png"
-                  :x 20 :y 20
-                  :width 262 :height 270}]
+        [[:animation {:duration 1000}
+          [:animation {:duration 200}
+            [:image {:name "images/dave.png"
+                     :x 20 :y 20
+                     :width 262 :height 270}]
+            [:image {:name "images/dave.png"
+                     :x 30 :y 20
+                     :width 262 :height 270}]]
+          [:image {:name "images/dave.png"
+                   :x 20 :y 20
+                   :width 262 :height 270}]]
          [:fill {:color "lightgrey"}
           [:rect {:x 0 :y (- screen-y 200) :width screen-x :height 200}
            [:fill {:color "black"}
