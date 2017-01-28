@@ -39,7 +39,8 @@
   []
   (let [peeping-creeps (filter is-peeping? (:creeps @state))]
     ; (js/console.log (force peeping-creeps))
-    (when-let [first-creep (first peeping-creeps)]
+    (when-let [current-creep (first peeping-creeps)]
+      (swap! state assoc :current-creep current-creep)
       (p/set-screen game fight-screen))))
 
 (defn update-state!
@@ -123,10 +124,10 @@
   (reify p/Screen
     (on-show [this]
       (swap! state assoc
-        :creeps #{{:x 100 :y -40 :direction :up}
-                  {:x 200 :y -40 :direction :right}
-                  {:x 300 :y -40 :direction :down}
-                  {:x 400 :y -40 :direction :left}}))
+        :creeps #{{:x 100 :y -40 :direction :up :name "dave"}
+                  {:x 200 :y -40 :direction :right :name "steve"}
+                  {:x 300 :y -40 :direction :down :name "john"}
+                  {:x 400 :y -40 :direction :left :name "james"}}))
     (on-hide [this])
     (on-render [this]
       (p/render game
@@ -141,7 +142,9 @@
     (on-hide [this])
     (on-render [this]
       (p/render game
-        [(render-fight-background)]))))
+        [(render-fight-background)
+         [:fill {:color "white"}
+          [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y 20 :size 16 :font "Georgia"}]]]))))
 
 (doto game
   (p/start)
