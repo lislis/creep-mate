@@ -46,15 +46,25 @@
     :down {:x 0 :y (- width height) :width width :height height}
     :left {:x 0 :y 0 :width height :height width}))
 
+(defn field-of-vision
+  [direction width height]
+  (condp = direction
+    :up {:x 0 :y (- height) :width width :height height}
+    :right {:x width :y 0 :width height :height width}
+    :down {:x 0 :y width :width width :height height}
+    :left {:x (- height) :y 0 :width height :height width}))
+
 (defn render-creep
   [creep]
-  [[:fill {:color "lightred"}
+  [[:fill {:color "hotpink"}
      [:rect {:x (+ (rendered-x) (- (:x @state)) (:x creep))
              :y (+ (rendered-y) (- (:y @state)) (:y creep))
              :width player-size
              :height player-size}
       [:fill {:color "black"}
-       [:rect (rotated-bar (:direction creep) player-size 2)]]]]])
+       [:rect (rotated-bar (:direction creep) player-size 2)]]
+      [:fill {:color "white"}
+        [:rect (field-of-vision (:direction creep) player-size (* player-size 2))]]]]])
 
 (defn render-player
   []
@@ -68,18 +78,17 @@
   (reify p/Screen
     (on-show [this]
       (swap! state assoc
-        :creeps #{{:x 60 :y -40 :direction :up}
-                  {:x 100 :y -40 :direction :right}
-                  {:x 140 :y -40 :direction :down}
-                  {:x 180 :y -40 :direction :left}}))
+        :creeps #{{:x 100 :y -40 :direction :up}
+                  {:x 200 :y -40 :direction :right}
+                  {:x 300 :y -40 :direction :down}
+                  {:x 400 :y -40 :direction :left}}))
     (on-hide [this])
     (on-render [this]
       (p/render game
         [(render-background)
          (render-house 40 40 100 40)
-         (render-player)])
-      (p/render game
-        (map render-creep (:creeps @state))))))
+         (map render-creep (:creeps @state))
+         (render-player)]))))
 
 (doto game
   (p/start)
