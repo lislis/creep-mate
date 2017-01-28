@@ -2,7 +2,7 @@
   (:require [play-cljs.core :as p]
             [goog.events :as events]))
 
-(def speed 1)
+(def speed 8)
 (def player-size 20)
 (def screen-x 800)
 (def screen-y 600)
@@ -17,6 +17,35 @@
     :up (swap! state assoc :y (- (:y @state) speed))
     :down (swap! state assoc :y (+ (:y @state) speed))))
 
+(defn rendered-x
+  []
+  (- (/ screen-x 2) (/ player-size 2)))
+
+(defn rendered-y
+  []
+  (- (/ screen-y 2) (/ player-size 2)))
+
+(defn render-background
+  []
+  [:fill {:color "#ddd"}
+    [:rect {:x 0 :y 0 :width screen-x :height screen-y}]])
+
+(defn render-house
+  [x y width height]
+  [:fill {:color "lightgreen"}
+   [:rect {:x (+ (rendered-x) (- (:x @state)) x)
+           :y (+ (rendered-y) (- (:y @state)) y)
+           :width width
+           :height height}]])
+
+(defn render-player
+  []
+  [:fill {:color "lightblue"}
+    [:rect {:x (rendered-x)
+            :y (rendered-y)
+            :width player-size
+            :height player-size}]])
+
 (def main-screen
   (reify p/Screen
     (on-show [this]
@@ -24,17 +53,9 @@
     (on-hide [this])
     (on-render [this]
       (p/render game
-        (let [rendered-x (- (/ screen-x 2) (/ player-size 2))
-              rendered-y (- (/ screen-y 2) (/ player-size 2))]
-          [[:fill {:color "#ddd"}
-            [:rect {:x 0 :y 0 :width screen-x :height screen-y}]]
-           [:fill {:color "lightblue"}
-            [:rect {:x rendered-x :y rendered-y :width player-size :height player-size}]]
-           [:fill {:color "lightgreen"}
-            [:rect {:x (+ rendered-x (- (:x @state)) 100)
-                    :y (+ rendered-y (- (:y @state)) 100)
-                    :width 100
-                    :height 40}]]])))))
+        [(render-background)
+         (render-house 20 20 100 40)
+         (render-player)]))))
 
 (doto game
   (p/start)
