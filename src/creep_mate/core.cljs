@@ -12,8 +12,13 @@
 
 (declare fight-screen fight-load-screen field-of-vision)
 
+(defn glitch-canvas!
+  []
+  (js/startGlitching (p/get-canvas game)))
+
 (defn enter-fight-screen!
   [current-creep]
+  (glitch-canvas!)
   (swap! state assoc :mode :fight)
   (swap! state assoc :current-creep current-creep)
   (swap! state assoc :canvas-data
