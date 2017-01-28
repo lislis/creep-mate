@@ -10,7 +10,42 @@
 (defonce game (p/create-game screen-x screen-y))
 (defonce state (atom {:x 0, :y 0, :creeps #{}}))
 
+(declare fight-screen field-of-vision)
+
+(defn is-peeping?
+  [creep]
+  (let [fov (field-of-vision creep)
+        fov-left (:x fov)
+        fov-right (+ (:x fov) (:width fov))
+        fov-top (:y fov)
+        fov-bottom (+ (:y fov) (:height fov))]
+    (and
+      (or (< fov-left
+             (+ (:x @state) player-size)
+             fov-right)
+          (< fov-left
+             (:x @state)
+             fov-right))
+       (or (< fov-top
+              (+ (:y @state) player-size)
+              fov-bottom)
+           (< fov-top
+              (:y @state)
+              fov-bottom)))))
+
+(defn check-creeps!
+  []
+  (let [peeping-creeps (filter is-peeping? (:creeps @state))]
+    ; (js/console.log (force peeping-creeps))
+    (when-let [first-creep (first peeping-creeps)]
+      (p/set-screen game fight-screen))))
+
+(defn update-state!
+  []
+  (check-creeps!))
+
 (defn move [direction]
+  (update-state!)
   (case direction
     :left (swap! state assoc :x (- (:x @state) speed))
     :right (swap! state assoc :x (+ (:x @state) speed))
@@ -30,6 +65,11 @@
   [:fill {:color "#ddd"}
     [:rect {:x 0 :y 0 :width screen-x :height screen-y}]])
 
+(defn render-fight-background
+  []
+  [:fill {:color "black"}
+    [:rect {:x 0 :y 0 :width screen-x :height screen-y}]])
+
 (defn render-house
   [x y width height]
   [:fill {:color "lightgreen"}
@@ -47,12 +87,15 @@
     :left {:x 0 :y 0 :width height :height width}))
 
 (defn field-of-vision
-  [direction width height]
-  (condp = direction
-    :up {:x 0 :y (- height) :width width :height height}
-    :right {:x width :y 0 :width height :height width}
-    :down {:x 0 :y width :width width :height height}
-    :left {:x (- height) :y 0 :width height :height width}))
+  [creep]
+  (let [direction (:direction creep)
+        width player-size
+        height (* player-size 2)]
+    (condp = direction
+      :up {:x 0 :y (- height) :width width :height height}
+      :right {:x width :y 0 :width height :height width}
+      :down {:x 0 :y width :width width :height height}
+      :left {:x (- height) :y 0 :width height :height width})))
 
 (defn render-creep
   [creep]
@@ -64,7 +107,7 @@
       [:fill {:color "black"}
        [:rect (rotated-bar (:direction creep) player-size 2)]]
       [:fill {:color "white"}
-        [:rect (field-of-vision (:direction creep) player-size (* player-size 2))]]]]])
+        [:rect (field-of-vision creep)]]]]])
 
 (defn render-player
   []
@@ -89,6 +132,14 @@
          (render-house 40 40 100 40)
          (map render-creep (:creeps @state))
          (render-player)]))))
+
+(def fight-screen
+  (reify p/Screen
+    (on-show [this])
+    (on-hide [this])
+    (on-render [this]
+      (p/render game
+        [(render-fight-background)]))))
 
 (doto game
   (p/start)
