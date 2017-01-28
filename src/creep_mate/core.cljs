@@ -2,13 +2,13 @@
   (:require [play-cljs.core :as p]
             [goog.events :as events]))
 
-(def speed 8)
+(def speed 4)
 (def player-size 20)
 (def screen-x 800)
 (def screen-y 600)
 
 (defonce game (p/create-game screen-x screen-y))
-(defonce state (atom {:x 0, :y 0}))
+(defonce state (atom {:x 0, :y 0, :creeps #{}}))
 
 (defn move [direction]
   (case direction
@@ -38,6 +38,24 @@
            :width width
            :height height}]])
 
+(defn rotated-bar
+  [direction width height]
+  (condp = direction
+    :up {:x 0 :y 0 :width width :height height}
+    :right {:x (- width height) :y 0 :width height :height width}
+    :down {:x 0 :y (- width height) :width width :height height}
+    :left {:x 0 :y 0 :width height :height width}))
+
+(defn render-creep
+  [creep]
+  [[:fill {:color "lightred"}
+     [:rect {:x (+ (rendered-x) (- (:x @state)) (:x creep))
+             :y (+ (rendered-y) (- (:y @state)) (:y creep))
+             :width player-size
+             :height player-size}
+      [:fill {:color "black"}
+       [:rect (rotated-bar (:direction creep) player-size 2)]]]]])
+
 (defn render-player
   []
   [:fill {:color "lightblue"}
@@ -49,13 +67,19 @@
 (def main-screen
   (reify p/Screen
     (on-show [this]
-      (reset! state {:text-x 20 :text-y 30}))
+      (swap! state assoc
+        :creeps #{{:x 60 :y -40 :direction :up}
+                  {:x 100 :y -40 :direction :right}
+                  {:x 140 :y -40 :direction :down}
+                  {:x 180 :y -40 :direction :left}}))
     (on-hide [this])
     (on-render [this]
       (p/render game
         [(render-background)
-         (render-house 20 20 100 40)
-         (render-player)]))))
+         (render-house 40 40 100 40)
+         (render-player)])
+      (p/render game
+        (map render-creep (:creeps @state))))))
 
 (doto game
   (p/start)
