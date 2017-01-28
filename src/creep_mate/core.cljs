@@ -190,7 +190,7 @@
       (p/render game
         [(render-fight-background)
          [:fill {:color "white"}
-          [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y 20 :size 16 :font "Georgia"}]]]))))
+          [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y (- (/ screen-y 2) 20) :size 40 :font "Courier"}]]]))))
 
 (def fight-screen
   (reify p/Screen
@@ -215,11 +215,12 @@
            [:fill {:color "black"}
             [:text {:value (str (:name (:current-creep @state)) ": hello honey, can i get your number?") :x 20 :y 60 :size 30 :font "Courier"}]]]]]))))
 
-; (swap! state assoc :current-creep {:x 100 :y -40 :direction :up :name "dave"})
-
 (doto game
   (p/start)
   (p/set-screen main-screen))
+
+; (swap! state assoc :current-creep {:x 100 :y -40 :direction :up :name "dave"})
+; (p/set-screen game fight-load-screen-2)
 
 (events/listen js/window "keydown"
                  (fn [^js/KeyboardEvent event]
