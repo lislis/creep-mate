@@ -7,11 +7,32 @@
 (def screen-x 800)
 (def screen-y 600)
 
+(def main-creeps
+  #{{:x 100 :y -40 :direction :up :title "congressman" :name "dave"}
+    {:x 200 :y -40 :direction :right :name "steve"}
+    {:x 300 :y -40 :direction :down :name "john"}
+    {:x 400 :y -40 :direction :left :name "james"}})
+
 (defonce game (p/create-game screen-x screen-y))
 (defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
 (defonce dialog-next (atom #()))
+(defonce dialog-buffer (atom []))
 
 (declare fight-load-screen fight-load-screen-2 fight-screen field-of-vision)
+
+(defn push-dialog!
+  [msg]
+  (swap! dialog-buffer conj msg))
+
+(defn consume-dialog!
+  []
+  (when (seq @dialog-buffer)
+    (let [msg (first @dialog-buffer)]
+      (swap! dialog-buffer rest))))
+
+(defn current-dialog
+  []
+  (first @dialog-buffer))
 
 (defn glitch-canvas!
   []
@@ -146,10 +167,7 @@
     (on-show [this]
       (js/bgsound.play)
       (swap! state assoc
-        :creeps #{{:x 100 :y -40 :direction :up :name "dave"}
-                  {:x 200 :y -40 :direction :right :name "steve"}
-                  {:x 300 :y -40 :direction :down :name "john"}
-                  {:x 400 :y -40 :direction :left :name "james"}}))
+        :creeps main-creeps))
     (on-hide [this])
     (on-render [this]
       (p/render game
@@ -189,9 +207,16 @@
     (on-hide [this])
     (on-render [this]
       (p/render game
-        [(render-fight-background)
-         [:fill {:color "white"}
-          [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y (- (/ screen-y 2) 20) :size 40 :font "Courier"}]]]))))
+        (let [creep (:current-creep @state)]
+          [(render-fight-background)
+           [:fill {:color "white"}
+            [:text {:value (str "creepy " (:title creep) " " (:name creep)
+                                "\n"
+                                "wants to fight!")
+                    :x 20
+                    :y (- (/ screen-y 2) 20)
+                    :size 40
+                    :font "Courier"}]]])))))
 
 (defn render-dialog
   [msg]
@@ -212,7 +237,14 @@
     (on-show [this]
       (p/load-image game "images/dave.png")
       (swap! state assoc :mode :dialog)
-      (reset! dialog-next #(swap! state assoc :mode :fight-menu)))
+      (reset! dialog-next #(swap! state assoc :mode :fight-menu))
+      (push-dialog!
+        (str (:name (:current-creep @state)) ": "
+             "hello honey, can i get your number?"))
+      (push-dialog!
+        (str (:name (:current-creep @state)) ": "
+             "also, i am going to take away your\n"
+             "reproductive rights!")))
     (on-hide [this])
     (on-render [this]
       (p/render game
@@ -228,14 +260,15 @@
                    :x 20 :y 20
                    :width 262 :height 270}]]
          (if (= (:mode @state) :dialog)
-            (render-dialog (str (:name (:current-creep @state)) ": hello honey, can i get your number?"))
+            (when-let [msg (current-dialog)]
+              (render-dialog msg))
             (render-fight-menu))]))))
 
 (doto game
   (p/start)
   (p/set-screen main-screen))
 
-; (swap! state assoc :current-creep {:x 100 :y -40 :direction :up :name "dave"})
+; (swap! state assoc :current-creep (first main-creeps))
 ; (p/set-screen game fight-screen)
 
 (events/listen js/window "keydown"
@@ -251,5 +284,7 @@
                           false)
                       :dialog
                         (when (= key 13)    ; enter
-                          (@dialog-next))
+                          (consume-dialog!)
+                          (when (empty? @dialog-buffer)
+                            (@dialog-next)))
                       nil))))
