@@ -8,15 +8,31 @@
 (def screen-y 600)
 
 (def main-creeps
-  #{{:x 100 :y -40 :direction :up :title "congressman" :name "dave"}
-    {:x 200 :y -40 :direction :right :name "steve"}
-    {:x 300 :y -40 :direction :down :name "john"}
-    {:x 400 :y -40 :direction :left :name "james"}})
+  #{{:x 100 :y -40 :direction :down
+     :title "congressman" :name "dave",
+     :lines ["hello honey, can i get your number?"
+             "also, i am going to take away your\nreproductive rights!"]}
+    {:x 200 :y -40 :direction :right
+     :title "beauty industry" :name "steve"
+     :lines ["hey babe, can i take a peek at you?"
+             "also, i am going to make clothes\nthat will never fit you!"
+             "without pockets!"]}
+    {:x 300 :y -40 :direction :up
+     :title "twitter egg" :name "john"
+     :lines []}
+    {:x 400 :y -40 :direction :left
+     :title "techie" :name "james",
+     :lines []}})
 
 (defonce game (p/create-game screen-x screen-y))
-(defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
+(defonce state
+  (atom {:x 0 :y 0
+         :mode :walk
+         :creeps #{}}))
 (defonce dialog-next (atom #()))
 (defonce dialog-buffer (atom []))
+; (defonce fight-actions
+;   (atom [[]]))
 
 (declare fight-load-screen fight-load-screen-2 fight-screen field-of-vision)
 
@@ -238,13 +254,10 @@
       (p/load-image game "images/dave.png")
       (swap! state assoc :mode :dialog)
       (reset! dialog-next #(swap! state assoc :mode :fight-menu))
-      (push-dialog!
-        (str (:name (:current-creep @state)) ": "
-             "hello honey, can i get your number?"))
-      (push-dialog!
-        (str (:name (:current-creep @state)) ": "
-             "also, i am going to take away your\n"
-             "reproductive rights!")))
+      (let [creep (:current-creep @state)
+            lines (map #(str (:name creep) ": " %) (:lines creep))]
+        (doseq [line lines]
+          (push-dialog! line))))
     (on-hide [this])
     (on-render [this]
       (p/render game
