@@ -2,6 +2,8 @@
   (:require [play-cljs.core :as p]
             [goog.events :as events]))
 
+(declare main-screen fight-load-screen fight-load-screen-2 fight-screen field-of-vision set-mode! push-dialog! set-dialog-next!)
+
 (def speed 4)
 (def player-size 28)
 (def screen-x 800)
@@ -11,7 +13,7 @@
 
 (def main-creeps
   #{{:x 50 :y 210 :direction :up
-     :title "congressman" :name "dave",
+     :title "congressman" :name "dave"
      :lines ["hello honey, can i get your number?"
              "also, i am going to take away your\nreproductive rights!"]
      :sy 96}
@@ -35,18 +37,50 @@
   (atom {:x 200 :y 280
          :player-look :right
          :mode :walk
-         :creeps #{}
+         :creeps main-creeps
          :city-bg (p/load-image game "city.png")}))
 (defonce dialog-next (atom #()))
 (defonce dialog-buffer (atom []))
-; (defonce fight-actions
-;   (atom [[]]))
+(defonce fight-actions
+  (atom [{:name "ignore"
+          :fn (fn []
+                (set-mode! :dialog)
+                (push-dialog! "you are trying to ignore the creep")
+                (push-dialog! "it is not very effective")
+                (push-dialog! "you are very annoyed")
+                (set-dialog-next! #(set-mode! :fight-menu)))}
+         {:name "drain"
+          :fn (fn []
+                (set-mode! :dialog)
+                (push-dialog! "you sink your teeth into the creep")
+                (push-dialog! "you suck all the blood")
+                (push-dialog! "it is very effective")
+                (swap! state update-in [:creeps] disj (:current-creep @state))
+                (set-dialog-next! #(p/set-screen game main-screen)))}]))
+(defonce current-fight-action-index (atom 0))
 
-(declare fight-load-screen fight-load-screen-2 fight-screen field-of-vision)
+(defn abs [n] (max n (- n)))
+
+(defn fight-action-index
+  []
+  (abs (mod @current-fight-action-index (count @fight-actions))))
+
+(defn fight-action
+  []
+  (get @fight-actions (fight-action-index)))
+
+(defn set-mode!
+  [mode]
+  (js/console.log "set-mode!" (name mode))
+  (swap! state assoc :mode mode))
+
+(defn set-dialog-next!
+  [next]
+  (reset! dialog-next next))
 
 (defn push-dialog!
   [msg]
-  (swap! dialog-buffer conj msg))
+  (swap! dialog-buffer concat [msg]))
 
 (defn consume-dialog!
   []
@@ -64,8 +98,9 @@
 
 (defn enter-fight-screen!
   [current-creep]
-  (swap! state assoc :mode :loading)
+  (set-mode! :loading)
   (swap! state assoc :current-creep current-creep)
+  (js/bgsound.stop)
   (js/battlesound.play)
   (when (not (seq (re-seq #"Firefox" (str user-agent))))
     (glitch-canvas!))
@@ -105,9 +140,7 @@
 (defn check-creeps!
   []
   (let [peeping-creeps (filter is-peeping? (:creeps @state))]
-    ; (js/console.log (force peeping-creeps))
     (when-let [current-creep (first peeping-creeps)]
-      (js/bgsound.stop)
       (enter-fight-screen! current-creep))))
 
 (defn update-state!
@@ -122,6 +155,14 @@
     :right (swap! state assoc :x (+ (:x @state) speed))
     :up (swap! state assoc :y (- (:y @state) speed))
     :down (swap! state assoc :y (+ (:y @state) speed))))
+
+(defn fight
+  [key]
+  (case key
+    :enter (apply (:fn (fight-action)) [])
+    :up (swap! current-fight-action-index dec)
+    :down (swap! current-fight-action-index inc)
+    false))
 
 (defn rendered-x
   []
@@ -152,7 +193,7 @@
 
 (defn rotated-bar
   [direction width height]
-  (condp = direction
+  (case direction
     :up {:x 0 :y 0 :width width :height height}
     :right {:x (- width height) :y 0 :width height :height width}
     :down {:x 0 :y (- width height) :width width :height height}
@@ -163,7 +204,7 @@
   (let [direction (:direction creep)
         width player-size
         height (* player-size 2)]
-    (condp = direction
+    (case direction
       :up {:x 0 :y (- height) :width width :height height}
       :right {:x width :y 0 :width height :height width}
       :down {:x 0 :y width :width width :height height}
@@ -210,9 +251,9 @@
       (p/load-image game "player.png")
       (p/load-image game "creep.png")
       (js/bgsound.play)
-      (swap! state assoc
-        :creeps main-creeps))
-    (on-hide [this])
+      (set-mode! :walk))
+    (on-hide [this]
+      (js/bgsound.stop))
     (on-render [this]
       (p/render game
         [(render-background)
@@ -269,24 +310,36 @@
     [:fill {:color "black"}
      [:text {:value msg :x 20 :y 60 :size 30 :font "Courier"}]]]])
 
+(defn prefix-fight-menu-action
+  [i action]
+  (str (if (= (fight-action-index) i) "> " "  ")
+       (:name action)))
+
 (defn render-fight-menu
   []
   [:fill {:color "lightgrey"}
    [:rect {:x 0 :y (- screen-y 200) :width screen-x :height 200}
     [:fill {:color "black"}
-     [:text {:value "> attack" :x 20 :y 60 :size 30 :font "Courier"}]]]])
+     (let [[a b c d] @fight-actions]
+       [[:text {:value (prefix-fight-menu-action 0 a) :x 20 :y 60 :size 30 :font "Courier"}]
+        [:text {:value (prefix-fight-menu-action 1 b) :x 20 :y 120 :size 30 :font "Courier"}]])]]])
 
 (def fight-screen
   (reify p/Screen
     (on-show [this]
       (p/load-image game "images/dave.png")
-      (swap! state assoc :mode :dialog)
-      (reset! dialog-next #(swap! state assoc :mode :fight-menu))
+      (reset! current-fight-action-index 0)
       (let [creep (:current-creep @state)
             lines (map #(str (:name creep) ": " %) (:lines creep))]
         (doseq [line lines]
-          (push-dialog! line))))
-    (on-hide [this])
+          (push-dialog! line)))
+      (if (current-dialog)
+        (do
+          (set-mode! :dialog)
+          (set-dialog-next! #(set-mode! :fight-menu)))
+        (set-mode! :fight-menu)))
+    (on-hide [this]
+      (js/battlesound.stop))
     (on-render [this]
       (p/render game
         [[:animation {:duration 1000}
@@ -300,9 +353,8 @@
           [:image {:name "images/dave.png"
                    :x 20 :y 20
                    :width 262 :height 270}]]
-         (if (= (:mode @state) :dialog)
-            (when-let [msg (current-dialog)]
-              (render-dialog msg))
+         (if-let [msg (current-dialog)]
+            (render-dialog msg)
             (render-fight-menu))]))))
 
 (doto game
@@ -315,7 +367,7 @@
 (events/listen js/window "keydown"
                  (fn [^js/KeyboardEvent event]
                    (let [key (.-keyCode event)]
-                    (condp = (:mode @state)
+                    (case (:mode @state)
                       :walk
                         (case key
                           87 (move :up)     ; w
@@ -328,4 +380,12 @@
                           (consume-dialog!)
                           (when (empty? @dialog-buffer)
                             (@dialog-next)))
+                      :fight-menu
+                        (case key
+                          13 (fight :enter)  ; enter
+                          87 (fight :up)     ; w
+                          65 (fight :left)   ; a
+                          83 (fight :down)   ; s
+                          68 (fight :right)  ; d
+                          false)
                       nil))))
