@@ -36,6 +36,7 @@
 (defonce state
   (atom {:x 200 :y 280
          :player-look :right
+         :player-moving false
          :mode :walk
          :creeps main-creeps
          :city-bg (p/load-image game "city.png")}))
@@ -150,11 +151,17 @@
 (defn move [direction]
   (update-state!)
   (swap! state assoc :player-look direction)
+  (swap! state assoc :player-moving true)
   (case direction
     :left (swap! state assoc :x (- (:x @state) speed))
     :right (swap! state assoc :x (+ (:x @state) speed))
     :up (swap! state assoc :y (- (:y @state) speed))
     :down (swap! state assoc :y (+ (:y @state) speed))))
+
+(defn stop-moving
+  [direction]
+  (when (= direction (:player-look @state)
+    (swap! state assoc :player-moving false))))
 
 (defn fight
   [key]
@@ -219,34 +226,31 @@
             :width player-size
             :height player-size}]])
 
+(def player-tiles
+  {:down  {:stand {:sx 2 :sy 2}
+           :walk  {:sx 2 :sy 36}}
+   :up    {:stand {:sx 83 :sy 2}
+           :walk  {:sx 83 :sy 36}}
+   :left  {:stand {:sx 43 :sy 2}
+           :walk  {:sx 43 :sy 36}}
+   :right {:stand {:sx 120 :sy 2}
+           :walk  {:sx 120 :sy 36}}})
+
 (defn render-player
   []
-  (let [stand-down [:image {:name "player.png" :swidth 30 :sheight 32 :sx 2 :sy 2
-                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        walk-down [:image {:name "player.png" :swidth 30 :sheight 32 :sx 2 :sy 36
-                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        stand-up  [:image {:name "player.png" :swidth 30 :sheight 32 :sx 83 :sy 2
-                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        walk-up [:image {:name "player.png" :swidth 30 :sheight 32 :sx 83 :sy 36
-                         :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        stand-left [:image {:name "player.png" :swidth 30 :sheight 32 :sx 43 :sy 2
-                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        walk-left [:image {:name "player.png" :swidth 30 :sheight 32 :sx 43 :sy 36
-                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        stand-right [:image {:name "player.png" :swidth 30 :sheight 32 :sx 120 :sy 2
-                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        walk-right [:image {:name "player.png" :swidth 30 :sheight 32 :sx 120 :sy 36
-                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
-        walking-down [:animation {:duration 200} stand-down walk-down]
-        walking-up [:animation {:duration 200} stand-up walk-up]
-        walking-left [:animation {:duration 200} stand-left walk-left]
-        walking-right [:animation {:duration 200} stand-right walk-right]]
-
-    (condp = (:player-look @state)
-      :up walking-up
-      :down walking-down
-      :left walking-left
-      :right walking-right)))
+  (let [direction (:player-look @state)
+        common {:name "player.png" :swidth 30 :sheight 32
+                :x (rendered-x) :y (rendered-y)
+                :width player-size :heigth player-size}
+        standing
+          [:image (merge common (-> player-tiles direction :stand))]
+        walking
+          [:animation {:duration 200}
+            [:image (merge common (-> player-tiles direction :stand))]
+            [:image (merge common (-> player-tiles direction :walk))]]]
+    (if (:player-moving @state)
+      walking
+      standing)))
 
 (def main-screen
   (reify p/Screen
@@ -390,5 +394,18 @@
                           65 (fight :left)   ; a
                           83 (fight :down)   ; s
                           68 (fight :right)  ; d
+                          false)
+                      nil))))
+
+(events/listen js/window "keyup"
+                 (fn [^js/KeyboardEvent event]
+                   (let [key (.-keyCode event)]
+                    (case (:mode @state)
+                      :walk
+                        (case key
+                          87 (stop-moving :up)     ; w
+                          65 (stop-moving :left)   ; a
+                          83 (stop-moving :down)   ; s
+                          68 (stop-moving :right)  ; d
                           false)
                       nil))))
