@@ -235,15 +235,20 @@
                             :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
         walk-left [:image {:name "player.png" :swidth 30 :sheight 32 :sx 43 :sy 36
                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        stand-right [:image {:name "player.png" :swidth 30 :sheight 32 :sx 120 :sy 2
+                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        walk-right [:image {:name "player.png" :swidth 30 :sheight 32 :sx 120 :sy 36
+                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
         walking-down [:animation {:duration 200} stand-down walk-down]
         walking-up [:animation {:duration 200} stand-up walk-up]
-        walking-left [:animation {:duration 200} stand-left walk-left]]
+        walking-left [:animation {:duration 200} stand-left walk-left]
+        walking-right [:animation {:duration 200} stand-right walk-right]]
 
     (condp = (:player-look @state)
       :up walking-up
       :down walking-down
       :left walking-left
-      :right walking-left)))
+      :right walking-right)))
 
 (def main-screen
   (reify p/Screen
