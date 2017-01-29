@@ -257,7 +257,7 @@
     (on-render [this]
       (p/render game
         [(render-background)
-         (render-house 25 -75 165 100)
+         ;(render-house 25 -75 165 100)
          (map render-creep (:creeps @state))
          (render-player)]))))
 
