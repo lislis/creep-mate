@@ -6,6 +6,8 @@
 (def player-size 20)
 (def screen-x 800)
 (def screen-y 600)
+(def navigator (js->clj (.-navigator js/window)))
+(def user-agent (.-userAgent navigator))
 
 (defonce game (p/create-game screen-x screen-y))
 (defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
@@ -21,13 +23,14 @@
   (swap! state assoc :mode :fight)
   (swap! state assoc :current-creep current-creep)
   (js/battlesound.play)
-  (glitch-canvas!)
+  (when (not (seq (re-seq #"Firefox" (str user-agent))))
+    (glitch-canvas!))
   (swap! state assoc :canvas-data
-    (-> (p/get-canvas game)
-        (.getContext "2d")
-        (.getImageData 0 0
-          (.-width (p/get-canvas game))
-          (.-height (p/get-canvas game)))))
+         (-> (p/get-canvas game)
+             (.getContext "2d")
+             (.getImageData 0 0
+                            (.-width (p/get-canvas game))
+                            (.-height (p/get-canvas game)))))
   (p/set-screen game fight-load-screen)
   (js/setTimeout #(p/set-screen game fight-load-screen-2) 2000)
   (js/setTimeout #(p/set-screen game fight-screen) 5000))
@@ -42,18 +45,18 @@
         fov-top fov-y-abs
         fov-bottom (+ fov-y-abs (:height fov))]
     (and
-      (or (< fov-left
-             (+ (:x @state) player-size)
-             fov-right)
-          (< fov-left
-             (:x @state)
-             fov-right))
-       (or (< fov-top
-              (+ (:y @state) player-size)
-              fov-bottom)
-           (< fov-top
-              (:y @state)
-              fov-bottom)))))
+     (or (< fov-left
+            (+ (:x @state) player-size)
+            fov-right)
+         (< fov-left
+            (:x @state)
+            fov-right))
+     (or (< fov-top
+            (+ (:y @state) player-size)
+            fov-bottom)
+         (< fov-top
+            (:y @state)
+            fov-bottom)))))
 
 (defn check-creeps!
   []
