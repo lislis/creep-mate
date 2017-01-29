@@ -5,7 +5,7 @@
 (declare main-screen fight-load-screen fight-load-screen-2 fight-screen field-of-vision set-mode! push-dialog! set-dialog-next!)
 
 (def speed 4)
-(def player-size 20)
+(def player-size 28)
 (def screen-x 800)
 (def screen-y 600)
 (def navigator (js->clj (.-navigator js/window)))
@@ -15,18 +15,22 @@
   #{{:x 50 :y 210 :direction :up
      :title "congressman" :name "dave"
      :lines ["hello honey, can i get your number?"
-             "also, i am going to take away your\nreproductive rights!"]}
+             "also, i am going to take away your\nreproductive rights!"]
+     :sy 96}
     {:x -50 :y 50 :direction :right
      :title "beauty industry" :name "steve"
      :lines ["hey babe, can i take a peek at you?"
              "also, i am going to make clothes\nthat will never fit you!"
-             "without pockets!"]}
+             "without pockets!"]
+     :sy 64}
     {:x 220 :y 30 :direction :down
      :title "twitter egg" :name "john"
-     :lines []}
+     :lines []
+     :sy 0}
     {:x 340 :y 200 :direction :left
-     :title "techie" :name "james"
-     :lines []}})
+     :title "techie" :name "james",
+     :lines []
+     :sy 32}})
 
 (defonce game (p/create-game screen-x screen-y))
 (defonce state
@@ -208,15 +212,14 @@
 
 (defn render-creep
   [creep]
-  [[:fill {:color "hotpink"}
-     [:rect {:x (+ (rendered-x) (- (:x @state)) (:x creep))
-             :y (+ (rendered-y) (- (:y @state)) (:y creep))
-             :width player-size
-             :height player-size}
-      [:fill {:color "black"}
-       [:rect (rotated-bar (:direction creep) player-size 2)]]
-      [:fill {:color "white"}
-        [:rect (field-of-vision creep)]]]]])
+  [[:image {:name "creep.png"
+            :swidth 30 :sheight 30 :sx 30 :sy (:sy creep)
+            :x (+ (rendered-x) (- (:x @state)) (:x creep))
+            :y (+ (rendered-y) (- (:y @state)) (:y creep))
+            :width player-size
+            :height player-size}
+    [:fill {:color "white"}
+     [:rect (field-of-vision creep)]]]])
 
 (defn render-player
   []
@@ -251,6 +254,7 @@
   (reify p/Screen
     (on-show [this]
       (p/load-image game "player.png")
+      (p/load-image game "creep.png")
       (js/bgsound.play)
       (set-mode! :walk))
     (on-hide [this]
@@ -258,7 +262,7 @@
     (on-render [this]
       (p/render game
         [(render-background)
-         (render-house 25 -75 165 100)
+         ;(render-house 25 -75 165 100)
          (map render-creep (:creeps @state))
          (render-player)]))))
 
