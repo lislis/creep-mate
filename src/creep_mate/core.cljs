@@ -10,7 +10,7 @@
 (def user-agent (.-userAgent navigator))
 
 (defonce game (p/create-game screen-x screen-y))
-(defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
+(defonce state (atom {:x 200 :y 280 :mode :walk :creeps #{} :city-bg (p/load-image game "city.png")}))
 
 (declare fight-load-screen fight-load-screen-2 fight-screen field-of-vision)
 
@@ -88,8 +88,9 @@
 
 (defn render-background
   []
-  [:fill {:color "#ddd"}
-    [:rect {:x 0 :y 0 :width screen-x :height screen-y}]])
+  [:fill {:color "#A0A0A4ww"}
+   [:rect {:x 0 :y 0 :width screen-x :height screen-y}]
+   [:image {:value (:city-bg @state) :x (- (:x @state)) :y (- (:y @state)) :width 1200 :height 900}]])
 
 (defn render-fight-background
   []
@@ -148,15 +149,15 @@
     (on-show [this]
       (js/bgsound.play)
       (swap! state assoc
-        :creeps #{{:x 100 :y -40 :direction :up :name "dave"}
-                  {:x 200 :y -40 :direction :right :name "steve"}
-                  {:x 300 :y -40 :direction :down :name "john"}
-                  {:x 400 :y -40 :direction :left :name "james"}}))
+        :creeps #{{:x 50 :y 210 :direction :up :name "dave"}
+                  {:x -50 :y 50 :direction :right :name "steve"}
+                  {:x 220 :y 30 :direction :down :name "john"}
+                  {:x 340 :y 200 :direction :left :name "james"}}))
     (on-hide [this])
     (on-render [this]
       (p/render game
         [(render-background)
-         (render-house 40 40 100 40)
+         (render-house 25 -75 165 100)
          (map render-creep (:creeps @state))
          (render-player)]))))
 
