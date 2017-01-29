@@ -29,6 +29,7 @@
 (defonce game (p/create-game screen-x screen-y))
 (defonce state
   (atom {:x 200 :y 280
+         :player-look :right
          :mode :walk
          :creeps #{}
          :city-bg (p/load-image game "city.png")}))
@@ -111,6 +112,7 @@
 
 (defn move [direction]
   (update-state!)
+  (swap! state assoc :player-look direction)
   (case direction
     :left (swap! state assoc :x (- (:x @state) speed))
     :right (swap! state assoc :x (+ (:x @state) speed))
@@ -177,15 +179,32 @@
 
 (defn render-player
   []
-  [:fill {:color "lightblue"}
-    [:rect {:x (rendered-x)
-            :y (rendered-y)
-            :width player-size
-            :height player-size}]])
+  (let [stand-down [:image {:name "player.png" :swidth 30 :sheight 32 :sx 2 :sy 2
+                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        walk-down [:image {:name "player.png" :swidth 30 :sheight 32 :sx 2 :sy 36
+                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        stand-up  [:image {:name "player.png" :swidth 30 :sheight 32 :sx 83 :sy 2
+                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        walk-up [:image {:name "player.png" :swidth 30 :sheight 32 :sx 83 :sy 36
+                         :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        stand-left [:image {:name "player.png" :swidth 30 :sheight 32 :sx 43 :sy 2
+                            :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        walk-left [:image {:name "player.png" :swidth 30 :sheight 32 :sx 43 :sy 36
+                           :x (rendered-x) :y (rendered-y) :width player-size :heigth player-size}]
+        walking-down [:animation {:duration 200} stand-down walk-down]
+        walking-up [:animation {:duration 200} stand-up walk-up]
+        walking-left [:animation {:duration 200} stand-left walk-left]]
+
+    (condp = (:player-look @state)
+      :up walking-up
+      :down walking-down
+      :left walking-left
+      :right walking-left)))
 
 (def main-screen
   (reify p/Screen
     (on-show [this]
+      (p/load-image game "player.png")
       (js/bgsound.play)
       (swap! state assoc
         :creeps main-creeps))
