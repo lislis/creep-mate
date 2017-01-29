@@ -9,6 +9,7 @@
 
 (defonce game (p/create-game screen-x screen-y))
 (defonce state (atom {:x 0 :y 0 :mode :walk :creeps #{}}))
+(defonce dialog-next (atom #()))
 
 (declare fight-load-screen fight-load-screen-2 fight-screen field-of-vision)
 
@@ -18,7 +19,7 @@
 
 (defn enter-fight-screen!
   [current-creep]
-  (swap! state assoc :mode :fight)
+  (swap! state assoc :mode :loading)
   (swap! state assoc :current-creep current-creep)
   (js/battlesound.play)
   (glitch-canvas!)
@@ -192,10 +193,26 @@
          [:fill {:color "white"}
           [:text {:value (str "creepy " (:name (:current-creep @state)) " wants to fight!") :x 20 :y (- (/ screen-y 2) 20) :size 40 :font "Courier"}]]]))))
 
+(defn render-dialog
+  [msg]
+  [:fill {:color "lightgrey"}
+   [:rect {:x 0 :y (- screen-y 200) :width screen-x :height 200}
+    [:fill {:color "black"}
+     [:text {:value msg :x 20 :y 60 :size 30 :font "Courier"}]]]])
+
+(defn render-fight-menu
+  []
+  [:fill {:color "lightgrey"}
+   [:rect {:x 0 :y (- screen-y 200) :width screen-x :height 200}
+    [:fill {:color "black"}
+     [:text {:value "> attack" :x 20 :y 60 :size 30 :font "Courier"}]]]])
+
 (def fight-screen
   (reify p/Screen
     (on-show [this]
-      (p/load-image game "images/dave.png"))
+      (p/load-image game "images/dave.png")
+      (swap! state assoc :mode :dialog)
+      (reset! dialog-next #(swap! state assoc :mode :fight-menu)))
     (on-hide [this])
     (on-render [this]
       (p/render game
@@ -210,25 +227,29 @@
           [:image {:name "images/dave.png"
                    :x 20 :y 20
                    :width 262 :height 270}]]
-         [:fill {:color "lightgrey"}
-          [:rect {:x 0 :y (- screen-y 200) :width screen-x :height 200}
-           [:fill {:color "black"}
-            [:text {:value (str (:name (:current-creep @state)) ": hello honey, can i get your number?") :x 20 :y 60 :size 30 :font "Courier"}]]]]]))))
+         (if (= (:mode @state) :dialog)
+            (render-dialog (str (:name (:current-creep @state)) ": hello honey, can i get your number?"))
+            (render-fight-menu))]))))
 
 (doto game
   (p/start)
   (p/set-screen main-screen))
 
 ; (swap! state assoc :current-creep {:x 100 :y -40 :direction :up :name "dave"})
-; (p/set-screen game fight-load-screen-2)
+; (p/set-screen game fight-screen)
 
 (events/listen js/window "keydown"
                  (fn [^js/KeyboardEvent event]
-                   (when (= (:mode @state) :walk)
-                     (let [key (.-keyCode event)]
-                       (case key
-                         87 (move :up)     ; w
-                         65 (move :left)   ; a
-                         83 (move :down)   ; s
-                         68 (move :right)  ; d
-                         false)))))
+                   (let [key (.-keyCode event)]
+                    (condp = (:mode @state)
+                      :walk
+                        (case key
+                          87 (move :up)     ; w
+                          65 (move :left)   ; a
+                          83 (move :down)   ; s
+                          68 (move :right)  ; d
+                          false)
+                      :dialog
+                        (when (= key 13)    ; enter
+                          (@dialog-next))
+                      nil))))
