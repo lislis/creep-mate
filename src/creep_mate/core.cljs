@@ -32,7 +32,7 @@
 (defonce state
   (atom {:x 200 :y 280
          :mode :walk
-         :creeps #{}
+         :creeps main-creeps
          :city-bg (p/load-image game "city.png")}))
 (defonce dialog-next (atom #()))
 (defonce dialog-buffer (atom []))
@@ -50,6 +50,7 @@
                 (push-dialog! "you sink your teeth into the creep")
                 (push-dialog! "you suck all the blood")
                 (push-dialog! "it is very effective")
+                (swap! state update-in [:creeps] disj (:current-creep @state))
                 (set-dialog-next! #(p/set-screen game main-screen)))}]))
 (defonce current-fight-action-index (atom 0))
 
@@ -74,7 +75,7 @@
 
 (defn push-dialog!
   [msg]
-  (swap! dialog-buffer conj msg))
+  (swap! dialog-buffer concat [msg]))
 
 (defn consume-dialog!
   []
@@ -227,8 +228,6 @@
   (reify p/Screen
     (on-show [this]
       (js/bgsound.play)
-      (swap! state assoc
-        :creeps main-creeps)
       (set-mode! :walk))
     (on-hide [this]
       (js/bgsound.stop))
