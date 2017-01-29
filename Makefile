@@ -10,4 +10,4 @@ heroku:
 	git add -f target static.json
 	git commit -m 'new build'
 	git checkout -
-	git push heroku deploy:master
+	git push -f heroku deploy:master
