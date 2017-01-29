@@ -43935,10 +43935,10 @@ cljs.core.every_pred.cljs$core$IFn$_invoke$arity$2 = function($p1$$, $p2$$) {
         default:
           var $y$$ = null;
           if (3 < arguments.length) {
-            for (var $y$$ = 0, $x$$ = Array(arguments.length - 3);$y$$ < $x$$.length;) {
-              $x$$[$y$$] = arguments[$y$$ + 3], ++$y$$;
+            for (var $y$$ = 0, $z$$ = Array(arguments.length - 3);$y$$ < $z$$.length;) {
+              $z$$[$y$$] = arguments[$y$$ + 3], ++$y$$;
             }
-            $y$$ = new cljs.core.IndexedSeq($x$$, 0);
+            $y$$ = new cljs.core.IndexedSeq($z$$, 0);
           }
           return $cljs$core$ep2__4$$.cljs$core$IFn$_invoke$arity$variadic($p1$$, $p2$$, $cljs$core$ep2$$, $y$$);
       }
@@ -57091,15 +57091,15 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
   }
   for (var $jobs$$ = cljs.core.async.chan.call(null, $c__13812__auto___c__13812__auto___14396_n$$), $results$$ = cljs.core.async.chan.call(null, $c__13812__auto___c__13812__auto___14396_n$$), $process$$2$$ = function($c__13812__auto___c__13812__auto___14396_n$$, $to$$) {
     return function($from$$) {
-      var $close_QMARK_$$ = cljs.core.nth.call(null, $from$$, 0, null), $type$$ = cljs.core.nth.call(null, $from$$, 1, null);
+      var $close_QMARK_$$ = cljs.core.nth.call(null, $from$$, 0, null), $results$$ = cljs.core.nth.call(null, $from$$, 1, null);
       if (null == $from$$) {
         return cljs.core.async.close_BANG_.call(null, $to$$), null;
       }
-      var $results$$ = cljs.core.async.chan.call(null, 1, $xf$$, $ex_handler$$), $async$$ = cljs.core.async.chan.call(null, 1);
-      cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$) {
+      var $type$$ = cljs.core.async.chan.call(null, 1, $xf$$, $ex_handler$$), $async$$ = cljs.core.async.chan.call(null, 1);
+      cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$) {
         return function() {
           var $async$$ = function() {
-            return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$, $async$$) {
+            return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$, $async$$) {
               return function() {
                 var $to$$ = null, $xf$$ = function() {
                   var $c__13812__auto___c__13812__auto___14396_n$$ = [null, null, null, null, null, null, null, null];
@@ -57143,7 +57143,7 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
                 $to$$.cljs$core$IFn$_invoke$arity$1 = $from$$;
                 return $to$$;
               }();
-            }(function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$) {
+            }(function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$) {
               return function($c__13812__auto___c__13812__auto___14396_n$$) {
                 var $xf$$ = $c__13812__auto___c__13812__auto___14396_n$$[1];
                 if (1 === $xf$$) {
@@ -57156,7 +57156,7 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
                 }
                 return null;
               };
-            }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$), $c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$);
+            }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$), $c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$);
           }(), $jobs$$ = function() {
             var $to$$ = $async$$.call(null);
             $to$$[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = $c__13812__auto___c__13812__auto___14396_n$$;
@@ -57164,8 +57164,8 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
           }();
           return cljs.core.async.impl.ioc_helpers.run_state_machine_wrapped.call(null, $jobs$$);
         };
-      }($async$$, $results$$, $from$$, $close_QMARK_$$, $type$$, $from$$, $c__13812__auto___c__13812__auto___14396_n$$, $to$$));
-      cljs.core.async.put_BANG_.call(null, $type$$, $results$$);
+      }($async$$, $type$$, $from$$, $close_QMARK_$$, $results$$, $from$$, $c__13812__auto___c__13812__auto___14396_n$$, $to$$));
+      cljs.core.async.put_BANG_.call(null, $results$$, $type$$);
       return !0;
     };
   }($jobs$$, $results$$), $async$$ = function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $from$$) {
@@ -57185,18 +57185,18 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
       switch($G__14205_14375$$) {
         case "compute":
           var $c__13812__auto___14377_c__13812__auto___14386$$ = cljs.core.async.chan.call(null, 1);
-          cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$) {
+          cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$) {
             return function() {
               var $async$$ = function() {
-                var $async$$ = function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$) {
+                var $async$$ = function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$) {
                   return function($c__13812__auto___c__13812__auto___14396_n$$) {
                     var $to$$ = $c__13812__auto___c__13812__auto___14396_n$$[1];
                     return 1 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 2 === $to$$ ? cljs.core.async.impl.ioc_helpers.take_BANG_.call(null, $c__13812__auto___c__13812__auto___14396_n$$, 4, $close_QMARK_$$) : 3 === $to$$ ? cljs.core.async.impl.ioc_helpers.return_chan.call(null, $c__13812__auto___c__13812__auto___14396_n$$, $c__13812__auto___c__13812__auto___14396_n$$[2]) : 
-                    4 === $to$$ ? ($to$$ = $type$$.call(null, $c__13812__auto___c__13812__auto___14396_n$$[2]), cljs.core.truth_($to$$) ? $c__13812__auto___c__13812__auto___14396_n$$[1] = 5 : $c__13812__auto___c__13812__auto___14396_n$$[1] = 6, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 5 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 6 === $to$$ ? 
+                    4 === $to$$ ? ($to$$ = $results$$.call(null, $c__13812__auto___c__13812__auto___14396_n$$[2]), cljs.core.truth_($to$$) ? $c__13812__auto___c__13812__auto___14396_n$$[1] = 5 : $c__13812__auto___c__13812__auto___14396_n$$[1] = 6, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 5 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 6 === $to$$ ? 
                     ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 7, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 7 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = $c__13812__auto___c__13812__auto___14396_n$$[2], $c__13812__auto___c__13812__auto___14396_n$$[1] = 3, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : null;
                   };
-                }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$);
-                return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$, $async$$) {
+                }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$);
+                return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$, $async$$) {
                   return function() {
                     var $c__13812__auto___c__13812__auto___14396_n$$ = null, $xf$$ = function() {
                       var $to$$ = [null, null, null, null, null, null, null];
@@ -57240,7 +57240,7 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
                     $c__13812__auto___c__13812__auto___14396_n$$.cljs$core$IFn$_invoke$arity$1 = $from$$;
                     return $c__13812__auto___c__13812__auto___14396_n$$;
                   }();
-                }($c__13812__auto___c__13812__auto___14396_n$$, $async$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$);
+                }($c__13812__auto___c__13812__auto___14396_n$$, $async$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$);
               }(), $jobs$$ = function() {
                 var $c__13812__auto___c__13812__auto___14396_n$$ = $async$$.call(null);
                 $c__13812__auto___c__13812__auto___14396_n$$[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = $to$$;
@@ -57252,18 +57252,18 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
           break;
         case "async":
           $c__13812__auto___14377_c__13812__auto___14386$$ = cljs.core.async.chan.call(null, 1);
-          cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$) {
+          cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$) {
             return function() {
               var $async$$ = function() {
-                var $async$$ = function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$) {
+                var $async$$ = function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$) {
                   return function($c__13812__auto___c__13812__auto___14396_n$$) {
                     var $to$$ = $c__13812__auto___c__13812__auto___14396_n$$[1];
                     return 1 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 2 === $to$$ ? cljs.core.async.impl.ioc_helpers.take_BANG_.call(null, $c__13812__auto___c__13812__auto___14396_n$$, 4, $close_QMARK_$$) : 3 === $to$$ ? cljs.core.async.impl.ioc_helpers.return_chan.call(null, $c__13812__auto___c__13812__auto___14396_n$$, $c__13812__auto___c__13812__auto___14396_n$$[2]) : 
-                    4 === $to$$ ? ($to$$ = $results$$.call(null, $c__13812__auto___c__13812__auto___14396_n$$[2]), cljs.core.truth_($to$$) ? $c__13812__auto___c__13812__auto___14396_n$$[1] = 5 : $c__13812__auto___c__13812__auto___14396_n$$[1] = 6, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 5 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 6 === $to$$ ? 
+                    4 === $to$$ ? ($to$$ = $type$$.call(null, $c__13812__auto___c__13812__auto___14396_n$$[2]), cljs.core.truth_($to$$) ? $c__13812__auto___c__13812__auto___14396_n$$[1] = 5 : $c__13812__auto___c__13812__auto___14396_n$$[1] = 6, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 5 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 6 === $to$$ ? 
                     ($c__13812__auto___c__13812__auto___14396_n$$[2] = null, $c__13812__auto___c__13812__auto___14396_n$$[1] = 7, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 7 === $to$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = $c__13812__auto___c__13812__auto___14396_n$$[2], $c__13812__auto___c__13812__auto___14396_n$$[1] = 3, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : null;
                   };
-                }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$);
-                return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$, $async$$) {
+                }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$);
+                return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$, $async$$) {
                   return function() {
                     var $c__13812__auto___c__13812__auto___14396_n$$ = null, $xf$$ = function() {
                       var $to$$ = [null, null, null, null, null, null, null];
@@ -57307,7 +57307,7 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
                     $c__13812__auto___c__13812__auto___14396_n$$.cljs$core$IFn$_invoke$arity$1 = $from$$;
                     return $c__13812__auto___c__13812__auto___14396_n$$;
                   }();
-                }($c__13812__auto___c__13812__auto___14396_n$$, $async$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $type$$, $results$$);
+                }($c__13812__auto___c__13812__auto___14396_n$$, $async$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$, $results$$, $type$$);
               }(), $jobs$$ = function() {
                 var $c__13812__auto___c__13812__auto___14396_n$$ = $async$$.call(null);
                 $c__13812__auto___c__13812__auto___14396_n$$[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = $to$$;
@@ -57328,7 +57328,7 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
   $c__13812__auto___c__13812__auto___14396_n$$ = cljs.core.async.chan.call(null, 1);
   cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $close_QMARK_$$, $ex_handler$$) {
     return function() {
-      var $type$$ = function() {
+      var $results$$ = function() {
         return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$) {
           return function() {
             var $to$$ = null, $xf$$ = function() {
@@ -57397,18 +57397,18 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
             2, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : null;
           };
         }($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $close_QMARK_$$, $ex_handler$$), $c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $close_QMARK_$$, $ex_handler$$);
-      }(), $results$$ = function() {
-        var $to$$ = $type$$.call(null);
+      }(), $type$$ = function() {
+        var $to$$ = $results$$.call(null);
         $to$$[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = $c__13812__auto___c__13812__auto___14396_n$$;
         return $to$$;
       }();
-      return cljs.core.async.impl.ioc_helpers.run_state_machine_wrapped.call(null, $results$$);
+      return cljs.core.async.impl.ioc_helpers.run_state_machine_wrapped.call(null, $type$$);
     };
   }($c__13812__auto___c__13812__auto___14396_n$$, $jobs$$, $results$$, $process$$2$$, $async$$));
   $c__13812__auto___c__13812__auto___14396_n$$ = cljs.core.async.chan.call(null, 1);
-  cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $type$$) {
+  cljs.core.async.impl.dispatch.run.call(null, function($c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $results$$) {
     return function() {
-      var $results$$ = function() {
+      var $type$$ = function() {
         return function($c__13812__auto___c__13812__auto___14396_n$$, $to$$, $xf$$, $from$$, $close_QMARK_$$, $ex_handler$$) {
           return function() {
             var $to$$ = null, $xf$$ = function() {
@@ -57453,7 +57453,7 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
             $to$$.cljs$core$IFn$_invoke$arity$1 = $from$$;
             return $to$$;
           }();
-        }(function($c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $type$$) {
+        }(function($c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $results$$) {
           return function($c__13812__auto___c__13812__auto___14396_n$$) {
             var $xf$$ = $c__13812__auto___c__13812__auto___14396_n$$[1];
             if (7 === $xf$$) {
@@ -57514,9 +57514,9 @@ cljs.core.async.pipeline_STAR_ = function($c__13812__auto___c__13812__auto___143
             return 16 === $xf$$ ? ($xf$$ = $c__13812__auto___c__13812__auto___14396_n$$[11], $c__13812__auto___c__13812__auto___14396_n$$[2] = $xf$$, $c__13812__auto___c__13812__auto___14396_n$$[1] = 17, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 10 === $xf$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = $c__13812__auto___c__13812__auto___14396_n$$[2], $c__13812__auto___c__13812__auto___14396_n$$[1] = 7, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 18 === 
             $xf$$ ? ($c__13812__auto___c__13812__auto___14396_n$$[2] = $c__13812__auto___c__13812__auto___14396_n$$[2], $c__13812__auto___c__13812__auto___14396_n$$[1] = 17, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : 8 === $xf$$ ? ($xf$$ = cljs.core.async.close_BANG_.call(null, $to$$), $c__13812__auto___c__13812__auto___14396_n$$[2] = $xf$$, $c__13812__auto___c__13812__auto___14396_n$$[1] = 10, new cljs.core.Keyword(null, "recur", "recur", -437573268)) : null;
           };
-        }($c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $type$$), $c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $type$$);
+        }($c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $results$$), $c__13812__auto___c__13812__auto___14396_n$$, $xf$$, $from$$, $ex_handler$$, $results$$);
       }(), $async$$ = function() {
-        var $to$$ = $results$$.call(null);
+        var $to$$ = $type$$.call(null);
         $to$$[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = $c__13812__auto___c__13812__auto___14396_n$$;
         return $to$$;
       }();
@@ -57683,8 +57683,8 @@ cljs.core.async.split.cljs$core$IFn$_invoke$arity$4 = function($p$$, $ch$$, $t_b
               return $t_buf_or_n_tc$$[2] = $f_buf_or_n_fc$$, $t_buf_or_n_tc$$[1] = 11, new cljs.core.Keyword(null, "recur", "recur", -437573268);
             }
             if (5 === $c__13812__auto___14498$$0$$) {
-              var $tc$$0$$ = cljs.core.async.close_BANG_.call(null, $f_buf_or_n_fc$$), $c__13812__auto___14498$$0$$ = cljs.core.async.close_BANG_.call(null, $c__13812__auto___14498$$);
-              $t_buf_or_n_tc$$[8] = $tc$$0$$;
+              var $f__13813__auto__$$ = cljs.core.async.close_BANG_.call(null, $f_buf_or_n_fc$$), $c__13812__auto___14498$$0$$ = cljs.core.async.close_BANG_.call(null, $c__13812__auto___14498$$);
+              $t_buf_or_n_tc$$[8] = $f__13813__auto__$$;
               $t_buf_or_n_tc$$[2] = $c__13812__auto___14498$$0$$;
               $t_buf_or_n_tc$$[1] = 7;
               return new cljs.core.Keyword(null, "recur", "recur", -437573268);
@@ -61174,8 +61174,8 @@ new cljs.core.Keyword(null, "direction", "direction", -633359395), new cljs.core
 "without pockets!"], null), new cljs.core.Keyword(null, "sy", "sy", 227523849), 64], null), new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null, "x", "x", 2099068185), 220, new cljs.core.Keyword(null, "y", "y", -1757859776), 30, new cljs.core.Keyword(null, "direction", "direction", -633359395), new cljs.core.Keyword(null, "down", "down", 1565245570), new cljs.core.Keyword(null, "title", "title", 636505583), "twitter egg", new cljs.core.Keyword(null, "name", "name", 1843675177), 
 "john", new cljs.core.Keyword(null, "lines", "lines", -700165781), cljs.core.PersistentVector.EMPTY, new cljs.core.Keyword(null, "sy", "sy", 227523849), 0], null)], !0);
 "undefined" === typeof creep_mate.core.game && (creep_mate.core.game = play_cljs.core.create_game.call(null, creep_mate.core.screen_x, creep_mate.core.screen_y));
-"undefined" === typeof creep_mate.core.state && (creep_mate.core.state = cljs.core.atom.call(null, new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null, "x", "x", 2099068185), 200, new cljs.core.Keyword(null, "y", "y", -1757859776), 280, new cljs.core.Keyword(null, "player-look", "player-look", -1562249712), new cljs.core.Keyword(null, "right", "right", -452581833), new cljs.core.Keyword(null, "mode", "mode", 654403691), new cljs.core.Keyword(null, "walk", "walk", 32921637), new cljs.core.Keyword(null, 
-"creeps", "creeps", 614323658), creep_mate.core.main_creeps, new cljs.core.Keyword(null, "city-bg", "city-bg", 1570985489), play_cljs.core.load_image.call(null, creep_mate.core.game, "city.png")], null)));
+"undefined" === typeof creep_mate.core.state && (creep_mate.core.state = cljs.core.atom.call(null, new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null, "x", "x", 2099068185), 200, new cljs.core.Keyword(null, "y", "y", -1757859776), 280, new cljs.core.Keyword(null, "player-look", "player-look", -1562249712), new cljs.core.Keyword(null, "right", "right", -452581833), new cljs.core.Keyword(null, "player-moving", "player-moving", -1852810861), !1, new cljs.core.Keyword(null, "mode", 
+"mode", 654403691), new cljs.core.Keyword(null, "walk", "walk", 32921637), new cljs.core.Keyword(null, "creeps", "creeps", 614323658), creep_mate.core.main_creeps, new cljs.core.Keyword(null, "city-bg", "city-bg", 1570985489), play_cljs.core.load_image.call(null, creep_mate.core.game, "city.png")], null)));
 "undefined" === typeof creep_mate.core.dialog_next && (creep_mate.core.dialog_next = cljs.core.atom.call(null, function() {
   return cljs.core.List.EMPTY;
 }));
@@ -61261,6 +61261,7 @@ creep_mate.core.update_state_BANG_ = function() {
 creep_mate.core.move = function($direction$$) {
   creep_mate.core.update_state_BANG_.call(null);
   cljs.core.swap_BANG_.call(null, creep_mate.core.state, cljs.core.assoc, new cljs.core.Keyword(null, "player-look", "player-look", -1562249712), $direction$$);
+  cljs.core.swap_BANG_.call(null, creep_mate.core.state, cljs.core.assoc, new cljs.core.Keyword(null, "player-moving", "player-moving", -1852810861), !0);
   switch($direction$$ instanceof cljs.core.Keyword ? $direction$$.fqn : null) {
     case "left":
       return cljs.core.swap_BANG_.call(null, creep_mate.core.state, cljs.core.assoc, new cljs.core.Keyword(null, "x", "x", 2099068185), (new cljs.core.Keyword(null, "x", "x", 2099068185)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)) - creep_mate.core.speed);
@@ -61273,6 +61274,10 @@ creep_mate.core.move = function($direction$$) {
     default:
       throw Error([cljs.core.str("No matching clause: "), cljs.core.str($direction$$)].join(""));;
   }
+};
+creep_mate.core.stop_moving = function($direction$$) {
+  cljs.core._EQ_.call(null, $direction$$, (new cljs.core.Keyword(null, "player-look", "player-look", -1562249712)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)), cljs.core.swap_BANG_.call(null, creep_mate.core.state, cljs.core.assoc, new cljs.core.Keyword(null, "player-moving", "player-moving", -1852810861), !1));
+  return null;
 };
 creep_mate.core.fight = function($key$$) {
   switch($key$$ instanceof cljs.core.Keyword ? $key$$.fqn : null) {
@@ -61342,80 +61347,60 @@ creep_mate.core.render_creep = function($creep$$) {
   "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621), new cljs.core.Keyword(null, "height", "height", 1025178622)], [creep_mate.core.rendered_y.call(null) + -(new cljs.core.Keyword(null, "y", "y", -1757859776)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)) + (new cljs.core.Keyword(null, "y", "y", -1757859776)).cljs$core$IFn$_invoke$arity$1($creep$$), 
   "creep.png", (new cljs.core.Keyword(null, "sy", "sy", 227523849)).cljs$core$IFn$_invoke$arity$1($creep$$), creep_mate.core.player_size, 30, creep_mate.core.rendered_x.call(null) + -(new cljs.core.Keyword(null, "x", "x", 2099068185)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)) + (new cljs.core.Keyword(null, "x", "x", 2099068185)).cljs$core$IFn$_invoke$arity$1($creep$$), 30, 30, creep_mate.core.player_size])], null)], null);
 };
+creep_mate.core.player_tiles = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "down", "down", 1565245570), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "stand", "stand", -1484467872), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 2, new cljs.core.Keyword(null, "sy", "sy", 227523849), 2], null), new cljs.core.Keyword(null, "walk", "walk", 32921637), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, 
+"sx", "sx", -403071592), 2, new cljs.core.Keyword(null, "sy", "sy", 227523849), 36], null)], null), new cljs.core.Keyword(null, "up", "up", -269712113), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "stand", "stand", -1484467872), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 83, new cljs.core.Keyword(null, "sy", "sy", 227523849), 2], null), new cljs.core.Keyword(null, "walk", "walk", 32921637), new cljs.core.PersistentArrayMap(null, 
+2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 83, new cljs.core.Keyword(null, "sy", "sy", 227523849), 36], null)], null), new cljs.core.Keyword(null, "left", "left", -399115937), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "stand", "stand", -1484467872), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 43, new cljs.core.Keyword(null, "sy", "sy", 227523849), 2], null), new cljs.core.Keyword(null, "walk", "walk", 32921637), 
+new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 43, new cljs.core.Keyword(null, "sy", "sy", 227523849), 36], null)], null), new cljs.core.Keyword(null, "right", "right", -452581833), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "stand", "stand", -1484467872), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 120, new cljs.core.Keyword(null, "sy", "sy", 227523849), 2], null), new cljs.core.Keyword(null, 
+"walk", "walk", 32921637), new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null, "sx", "sx", -403071592), 120, new cljs.core.Keyword(null, "sy", "sy", 227523849), 36], null)], null)], null);
 creep_mate.core.render_player = function() {
-  var $stand_down_walking_down$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, 
-  "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, "player.png", 2, creep_mate.core.player_size, 2, creep_mate.core.rendered_x.call(null), 30, 32])], null), $walk_down$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
-  "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", 
-  -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, "player.png", 36, creep_mate.core.player_size, 2, creep_mate.core.rendered_x.call(null), 30, 32])], null), $stand_up_walking_up$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), 
-  new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, 
-  "player.png", 2, creep_mate.core.player_size, 83, creep_mate.core.rendered_x.call(null), 30, 32])], null), $walk_up$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", 
-  "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, "player.png", 36, creep_mate.core.player_size, 83, creep_mate.core.rendered_x.call(null), 30, 32])], null), $stand_left_walking_left$$ = 
-  new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", 
-  -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, "player.png", 2, creep_mate.core.player_size, 43, creep_mate.core.rendered_x.call(null), 30, 32])], null), $expr__16882_walk_left$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
-  "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", 
-  -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, "player.png", 36, creep_mate.core.player_size, 43, creep_mate.core.rendered_x.call(null), 30, 32])], null), $stand_right_walking_right$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", 
-  "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), 
-  creep_mate.core.player_size, "player.png", 2, creep_mate.core.player_size, 120, creep_mate.core.rendered_x.call(null), 30, 32])], null), $pred__16881_walk_right$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null, "y", "y", -1757859776), new cljs.core.Keyword(null, "heigth", "heigth", 914329217), new cljs.core.Keyword(null, "name", "name", 
-  1843675177), new cljs.core.Keyword(null, "sy", "sy", 227523849), new cljs.core.Keyword(null, "width", "width", -384071477), new cljs.core.Keyword(null, "sx", "sx", -403071592), new cljs.core.Keyword(null, "x", "x", 2099068185), new cljs.core.Keyword(null, "swidth", "swidth", -976864420), new cljs.core.Keyword(null, "sheight", "sheight", 1322250621)], [creep_mate.core.rendered_y.call(null), creep_mate.core.player_size, "player.png", 36, creep_mate.core.player_size, 120, creep_mate.core.rendered_x.call(null), 
-  30, 32])], null), $stand_down_walking_down$$ = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], null), $stand_down_walking_down$$, $walk_down$$], null), $stand_up_walking_up$$ = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
-  "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], null), $stand_up_walking_up$$, $walk_up$$], null), $stand_left_walking_left$$ = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], 
-  null), $stand_left_walking_left$$, $expr__16882_walk_left$$], null), $stand_right_walking_right$$ = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], null), $stand_right_walking_right$$, $pred__16881_walk_right$$], null), $pred__16881_walk_right$$ = cljs.core._EQ_, $expr__16882_walk_left$$ = 
-  (new cljs.core.Keyword(null, "player-look", "player-look", -1562249712)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state));
-  if (cljs.core.truth_($pred__16881_walk_right$$.call(null, new cljs.core.Keyword(null, "up", "up", -269712113), $expr__16882_walk_left$$))) {
-    return $stand_up_walking_up$$;
-  }
-  if (cljs.core.truth_($pred__16881_walk_right$$.call(null, new cljs.core.Keyword(null, "down", "down", 1565245570), $expr__16882_walk_left$$))) {
-    return $stand_down_walking_down$$;
-  }
-  if (cljs.core.truth_($pred__16881_walk_right$$.call(null, new cljs.core.Keyword(null, "left", "left", -399115937), $expr__16882_walk_left$$))) {
-    return $stand_left_walking_left$$;
-  }
-  if (cljs.core.truth_($pred__16881_walk_right$$.call(null, new cljs.core.Keyword(null, "right", "right", -452581833), $expr__16882_walk_left$$))) {
-    return $stand_right_walking_right$$;
-  }
-  throw Error([cljs.core.str("No matching clause: "), cljs.core.str($expr__16882_walk_left$$)].join(""));
+  var $direction$$ = (new cljs.core.Keyword(null, "player-look", "player-look", -1562249712)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)), $common$$ = new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null, "name", "name", 1843675177), "player.png", new cljs.core.Keyword(null, "swidth", "swidth", -976864420), 30, new cljs.core.Keyword(null, "sheight", "sheight", 1322250621), 32, new cljs.core.Keyword(null, "x", "x", 2099068185), creep_mate.core.rendered_x.call(null), 
+  new cljs.core.Keyword(null, "y", "y", -1757859776), creep_mate.core.rendered_y.call(null), new cljs.core.Keyword(null, "width", "width", -384071477), creep_mate.core.player_size, new cljs.core.Keyword(null, "heigth", "heigth", 914329217), creep_mate.core.player_size], null), $standing$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.merge.call(null, $common$$, (new cljs.core.Keyword(null, "stand", 
+  "stand", -1484467872)).cljs$core$IFn$_invoke$arity$1($direction$$.call(null, creep_mate.core.player_tiles)))], null), $direction$$ = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
+  "image", "image", -58725096), cljs.core.merge.call(null, $common$$, (new cljs.core.Keyword(null, "stand", "stand", -1484467872)).cljs$core$IFn$_invoke$arity$1($direction$$.call(null, creep_mate.core.player_tiles)))], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), cljs.core.merge.call(null, $common$$, (new cljs.core.Keyword(null, "walk", "walk", 32921637)).cljs$core$IFn$_invoke$arity$1($direction$$.call(null, 
+  creep_mate.core.player_tiles)))], null)], null);
+  return cljs.core.truth_((new cljs.core.Keyword(null, "player-moving", "player-moving", -1852810861)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state))) ? $direction$$ : $standing$$;
 };
 creep_mate.core.main_screen = function() {
-  "undefined" === typeof creep_mate.core.t_creep_mate$core16884 && (creep_mate.core.t_creep_mate$core16884 = function($meta16885$$) {
-    this.meta16885 = $meta16885$$;
+  "undefined" === typeof creep_mate.core.t_creep_mate$core16878 && (creep_mate.core.t_creep_mate$core16878 = function($meta16879$$) {
+    this.meta16879 = $meta16879$$;
     this.cljs$lang$protocol_mask$partition0$ = 393216;
     this.cljs$lang$protocol_mask$partition1$ = 0;
-  }, creep_mate.core.t_creep_mate$core16884.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16886$$, $meta16885__$1$$) {
-    return new creep_mate.core.t_creep_mate$core16884($meta16885__$1$$);
-  }, creep_mate.core.t_creep_mate$core16884.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16886$$) {
-    return this.meta16885;
-  }, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_show$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16878.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16880$$, $meta16879__$1$$) {
+    return new creep_mate.core.t_creep_mate$core16878($meta16879__$1$$);
+  }, creep_mate.core.t_creep_mate$core16878.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16880$$) {
+    return this.meta16879;
+  }, creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$on_show$arity$1 = function($this$$$) {
     play_cljs.core.load_image.call(null, creep_mate.core.game, "player.png");
     play_cljs.core.load_image.call(null, creep_mate.core.game, "creep.png");
     bgsound.play();
     return creep_mate.core.set_mode_BANG_.call(null, new cljs.core.Keyword(null, "walk", "walk", 32921637));
-  }, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
     return bgsound.stop();
-  }, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
     return play_cljs.core.render.call(null, creep_mate.core.game, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [creep_mate.core.render_background.call(null), cljs.core.map.call(null, creep_mate.core.render_creep, (new cljs.core.Keyword(null, "creeps", "creeps", 614323658)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state))), creep_mate.core.render_player.call(null)], null));
-  }, creep_mate.core.t_creep_mate$core16884.getBasis = function() {
-    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16885", "meta16885", 255922661, null)], null);
-  }, creep_mate.core.t_creep_mate$core16884.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16884.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16884", creep_mate.core.t_creep_mate$core16884.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
-    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16884");
-  }, creep_mate.core.__GT_t_creep_mate$core16884 = function($meta16885$$) {
-    return new creep_mate.core.t_creep_mate$core16884($meta16885$$);
+  }, creep_mate.core.t_creep_mate$core16878.getBasis = function() {
+    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16879", "meta16879", 1164843332, null)], null);
+  }, creep_mate.core.t_creep_mate$core16878.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16878.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16878", creep_mate.core.t_creep_mate$core16878.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
+    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16878");
+  }, creep_mate.core.__GT_t_creep_mate$core16878 = function($meta16879$$) {
+    return new creep_mate.core.t_creep_mate$core16878($meta16879$$);
   });
-  return new creep_mate.core.t_creep_mate$core16884(cljs.core.PersistentArrayMap.EMPTY);
+  return new creep_mate.core.t_creep_mate$core16878(cljs.core.PersistentArrayMap.EMPTY);
 }();
 creep_mate.core.fight_load_screen = function() {
-  "undefined" === typeof creep_mate.core.t_creep_mate$core16887 && (creep_mate.core.t_creep_mate$core16887 = function($meta16888$$) {
-    this.meta16888 = $meta16888$$;
+  "undefined" === typeof creep_mate.core.t_creep_mate$core16881 && (creep_mate.core.t_creep_mate$core16881 = function($meta16882$$) {
+    this.meta16882 = $meta16882$$;
     this.cljs$lang$protocol_mask$partition0$ = 393216;
     this.cljs$lang$protocol_mask$partition1$ = 0;
-  }, creep_mate.core.t_creep_mate$core16887.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16889$$, $meta16888__$1$$) {
-    return new creep_mate.core.t_creep_mate$core16887($meta16888__$1$$);
-  }, creep_mate.core.t_creep_mate$core16887.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16889$$) {
-    return this.meta16888;
-  }, creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$on_show$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16881.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16883$$, $meta16882__$1$$) {
+    return new creep_mate.core.t_creep_mate$core16881($meta16882__$1$$);
+  }, creep_mate.core.t_creep_mate$core16881.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16883$$) {
+    return this.meta16882;
+  }, creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$on_show$arity$1 = function($this$$$) {
     return null;
-  }, creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
     return null;
-  }, creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
     play_cljs.core.get_canvas.call(null, creep_mate.core.game).getContext("2d").putImageData((new cljs.core.Keyword(null, "canvas-data", "canvas-data", -303423685)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)), 0, 0);
     return play_cljs.core.render.call(null, creep_mate.core.game, new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "fill", "fill", 883462889), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "color", "color", 1011675173), "black"], null), new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 
     1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], null), new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "rect", "rect", -108902628), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x", "x", 2099068185), 0, new cljs.core.Keyword(null, "y", "y", -1757859776), 0, new cljs.core.Keyword(null, "width", "width", 
@@ -61430,43 +61415,43 @@ creep_mate.core.fight_load_screen = function() {
     20], null)], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "rect", "rect", -108902628), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x", "x", 2099068185), 200, new cljs.core.Keyword(null, "y", "y", -1757859776), 200, new cljs.core.Keyword(null, "width", "width", -384071477), 20, new cljs.core.Keyword(null, "height", "height", 1025178622), 20], null)], null), new cljs.core.PersistentVector(null, 
     2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "rect", "rect", -108902628), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x", "x", 2099068185), 220, new cljs.core.Keyword(null, "y", "y", -1757859776), 220, new cljs.core.Keyword(null, "width", "width", -384071477), 20, new cljs.core.Keyword(null, "height", "height", 1025178622), 20], null)], null)], null), new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 
     2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "rect", "rect", -108902628), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x", "x", 2099068185), 0, new cljs.core.Keyword(null, "y", "y", -1757859776), 0, new cljs.core.Keyword(null, "width", "width", -384071477), 20, new cljs.core.Keyword(null, "height", "height", 1025178622), 20], null)], null)], null)], null)], null));
-  }, creep_mate.core.t_creep_mate$core16887.getBasis = function() {
-    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16888", "meta16888", 1707212575, null)], null);
-  }, creep_mate.core.t_creep_mate$core16887.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16887.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16887", creep_mate.core.t_creep_mate$core16887.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
-    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16887");
-  }, creep_mate.core.__GT_t_creep_mate$core16887 = function($meta16888$$) {
-    return new creep_mate.core.t_creep_mate$core16887($meta16888$$);
+  }, creep_mate.core.t_creep_mate$core16881.getBasis = function() {
+    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16882", "meta16882", 1011206908, null)], null);
+  }, creep_mate.core.t_creep_mate$core16881.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16881.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16881", creep_mate.core.t_creep_mate$core16881.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
+    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16881");
+  }, creep_mate.core.__GT_t_creep_mate$core16881 = function($meta16882$$) {
+    return new creep_mate.core.t_creep_mate$core16881($meta16882$$);
   });
-  return new creep_mate.core.t_creep_mate$core16887(cljs.core.PersistentArrayMap.EMPTY);
+  return new creep_mate.core.t_creep_mate$core16881(cljs.core.PersistentArrayMap.EMPTY);
 }();
 creep_mate.core.fight_load_screen_2 = function() {
-  "undefined" === typeof creep_mate.core.t_creep_mate$core16890 && (creep_mate.core.t_creep_mate$core16890 = function($meta16891$$) {
-    this.meta16891 = $meta16891$$;
+  "undefined" === typeof creep_mate.core.t_creep_mate$core16884 && (creep_mate.core.t_creep_mate$core16884 = function($meta16885$$) {
+    this.meta16885 = $meta16885$$;
     this.cljs$lang$protocol_mask$partition0$ = 393216;
     this.cljs$lang$protocol_mask$partition1$ = 0;
-  }, creep_mate.core.t_creep_mate$core16890.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16892$$, $meta16891__$1$$) {
-    return new creep_mate.core.t_creep_mate$core16890($meta16891__$1$$);
-  }, creep_mate.core.t_creep_mate$core16890.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16892$$) {
-    return this.meta16891;
-  }, creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$on_show$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16884.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16886$$, $meta16885__$1$$) {
+    return new creep_mate.core.t_creep_mate$core16884($meta16885__$1$$);
+  }, creep_mate.core.t_creep_mate$core16884.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16886$$) {
+    return this.meta16885;
+  }, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_show$arity$1 = function($this$$$) {
     return null;
-  }, creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
     return null;
-  }, creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
     return play_cljs.core.render.call(null, creep_mate.core.game, function() {
       var $this$$$ = (new cljs.core.Keyword(null, "current-creep", "current-creep", -127669639)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state));
       return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [creep_mate.core.render_fight_background.call(null), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "fill", "fill", 883462889), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "color", "color", 1011675173), "white"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
       "text", "text", -1790561697), new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "value", "value", 305978217), [cljs.core.str("creepy "), cljs.core.str((new cljs.core.Keyword(null, "title", "title", 636505583)).cljs$core$IFn$_invoke$arity$1($this$$$)), cljs.core.str(" "), cljs.core.str((new cljs.core.Keyword(null, "name", "name", 1843675177)).cljs$core$IFn$_invoke$arity$1($this$$$)), cljs.core.str("\n"), cljs.core.str("wants to fight!")].join(""), new cljs.core.Keyword(null, 
       "x", "x", 2099068185), 20, new cljs.core.Keyword(null, "y", "y", -1757859776), creep_mate.core.screen_y / 2 - 20, new cljs.core.Keyword(null, "size", "size", 1098693007), 40, new cljs.core.Keyword(null, "font", "font", -1506159249), "Courier"], null)], null)], null)], null);
     }());
-  }, creep_mate.core.t_creep_mate$core16890.getBasis = function() {
-    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16891", "meta16891", -1906046879, null)], null);
-  }, creep_mate.core.t_creep_mate$core16890.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16890.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16890", creep_mate.core.t_creep_mate$core16890.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
-    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16890");
-  }, creep_mate.core.__GT_t_creep_mate$core16890 = function($meta16891$$) {
-    return new creep_mate.core.t_creep_mate$core16890($meta16891$$);
+  }, creep_mate.core.t_creep_mate$core16884.getBasis = function() {
+    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16885", "meta16885", 255922661, null)], null);
+  }, creep_mate.core.t_creep_mate$core16884.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16884.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16884", creep_mate.core.t_creep_mate$core16884.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
+    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16884");
+  }, creep_mate.core.__GT_t_creep_mate$core16884 = function($meta16885$$) {
+    return new creep_mate.core.t_creep_mate$core16884($meta16885$$);
   });
-  return new creep_mate.core.t_creep_mate$core16890(cljs.core.PersistentArrayMap.EMPTY);
+  return new creep_mate.core.t_creep_mate$core16884(cljs.core.PersistentArrayMap.EMPTY);
 }();
 creep_mate.core.render_dialog = function($msg$$) {
   return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "fill", "fill", 883462889), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "color", "color", 1011675173), "lightgrey"], null), new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "rect", "rect", -108902628), new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x", "x", 2099068185), 
@@ -61480,59 +61465,59 @@ creep_mate.core.prefix_fight_menu_action = function($i$$, $action$$) {
 creep_mate.core.render_fight_menu = function() {
   var $JSCompiler_temp_const$$ = cljs.core.PersistentVector, $JSCompiler_temp_const$$0$$ = cljs.core.PersistentVector.EMPTY_NODE, $JSCompiler_temp_const$$1$$ = new cljs.core.Keyword(null, "fill", "fill", 883462889), $JSCompiler_temp_const$$2$$ = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "color", "color", 1011675173), "lightgrey"], null), $JSCompiler_temp_const$$3$$ = cljs.core.PersistentVector, $JSCompiler_temp_const$$4$$ = cljs.core.PersistentVector.EMPTY_NODE, $JSCompiler_temp_const$$5$$ = 
   new cljs.core.Keyword(null, "rect", "rect", -108902628), $JSCompiler_temp_const$$6$$ = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null, "x", "x", 2099068185), 0, new cljs.core.Keyword(null, "y", "y", -1757859776), creep_mate.core.screen_y - 200, new cljs.core.Keyword(null, "width", "width", -384071477), creep_mate.core.screen_x, new cljs.core.Keyword(null, "height", "height", 1025178622), 200], null), $JSCompiler_temp_const$$7$$ = cljs.core.PersistentVector, $JSCompiler_temp_const$$8$$ = 
-  cljs.core.PersistentVector.EMPTY_NODE, $JSCompiler_temp_const$$9$$ = new cljs.core.Keyword(null, "fill", "fill", 883462889), $JSCompiler_temp_const$$10$$ = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "color", "color", 1011675173), "black"], null), $JSCompiler_inline_result$$34_vec__16896$$;
-  $JSCompiler_inline_result$$34_vec__16896$$ = cljs.core.deref.call(null, creep_mate.core.fight_actions);
-  var $a$$ = cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16896$$, 0, null), $b$$ = cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16896$$, 1, null);
-  cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16896$$, 2, null);
-  cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16896$$, 3, null);
-  $JSCompiler_inline_result$$34_vec__16896$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "text", "text", -1790561697), new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "value", "value", 305978217), creep_mate.core.prefix_fight_menu_action.call(null, 0, $a$$), new cljs.core.Keyword(null, "x", "x", 2099068185), 20, new cljs.core.Keyword(null, 
+  cljs.core.PersistentVector.EMPTY_NODE, $JSCompiler_temp_const$$9$$ = new cljs.core.Keyword(null, "fill", "fill", 883462889), $JSCompiler_temp_const$$10$$ = new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "color", "color", 1011675173), "black"], null), $JSCompiler_inline_result$$34_vec__16890$$;
+  $JSCompiler_inline_result$$34_vec__16890$$ = cljs.core.deref.call(null, creep_mate.core.fight_actions);
+  var $a$$ = cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16890$$, 0, null), $b$$ = cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16890$$, 1, null);
+  cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16890$$, 2, null);
+  cljs.core.nth.call(null, $JSCompiler_inline_result$$34_vec__16890$$, 3, null);
+  $JSCompiler_inline_result$$34_vec__16890$$ = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "text", "text", -1790561697), new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "value", "value", 305978217), creep_mate.core.prefix_fight_menu_action.call(null, 0, $a$$), new cljs.core.Keyword(null, "x", "x", 2099068185), 20, new cljs.core.Keyword(null, 
   "y", "y", -1757859776), 60, new cljs.core.Keyword(null, "size", "size", 1098693007), 30, new cljs.core.Keyword(null, "font", "font", -1506159249), "Courier"], null)], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "text", "text", -1790561697), new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "value", "value", 305978217), creep_mate.core.prefix_fight_menu_action.call(null, 1, $b$$), new cljs.core.Keyword(null, 
   "x", "x", 2099068185), 20, new cljs.core.Keyword(null, "y", "y", -1757859776), 120, new cljs.core.Keyword(null, "size", "size", 1098693007), 30, new cljs.core.Keyword(null, "font", "font", -1506159249), "Courier"], null)], null)], null);
-  return new $JSCompiler_temp_const$$(null, 3, 5, $JSCompiler_temp_const$$0$$, [$JSCompiler_temp_const$$1$$, $JSCompiler_temp_const$$2$$, new $JSCompiler_temp_const$$3$$(null, 3, 5, $JSCompiler_temp_const$$4$$, [$JSCompiler_temp_const$$5$$, $JSCompiler_temp_const$$6$$, new $JSCompiler_temp_const$$7$$(null, 3, 5, $JSCompiler_temp_const$$8$$, [$JSCompiler_temp_const$$9$$, $JSCompiler_temp_const$$10$$, $JSCompiler_inline_result$$34_vec__16896$$], null)], null)], null);
+  return new $JSCompiler_temp_const$$(null, 3, 5, $JSCompiler_temp_const$$0$$, [$JSCompiler_temp_const$$1$$, $JSCompiler_temp_const$$2$$, new $JSCompiler_temp_const$$3$$(null, 3, 5, $JSCompiler_temp_const$$4$$, [$JSCompiler_temp_const$$5$$, $JSCompiler_temp_const$$6$$, new $JSCompiler_temp_const$$7$$(null, 3, 5, $JSCompiler_temp_const$$8$$, [$JSCompiler_temp_const$$9$$, $JSCompiler_temp_const$$10$$, $JSCompiler_inline_result$$34_vec__16890$$], null)], null)], null);
 };
 creep_mate.core.fight_screen = function() {
-  "undefined" === typeof creep_mate.core.t_creep_mate$core16900 && (creep_mate.core.t_creep_mate$core16900 = function($meta16901$$) {
-    this.meta16901 = $meta16901$$;
+  "undefined" === typeof creep_mate.core.t_creep_mate$core16894 && (creep_mate.core.t_creep_mate$core16894 = function($meta16895$$) {
+    this.meta16895 = $meta16895$$;
     this.cljs$lang$protocol_mask$partition0$ = 393216;
     this.cljs$lang$protocol_mask$partition1$ = 0;
-  }, creep_mate.core.t_creep_mate$core16900.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16902$$, $meta16901__$1$$) {
-    return new creep_mate.core.t_creep_mate$core16900($meta16901__$1$$);
-  }, creep_mate.core.t_creep_mate$core16900.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16902$$) {
-    return this.meta16901;
-  }, creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$on_show$arity$1 = function($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$) {
+  }, creep_mate.core.t_creep_mate$core16894.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = function($_16896$$, $meta16895__$1$$) {
+    return new creep_mate.core.t_creep_mate$core16894($meta16895__$1$$);
+  }, creep_mate.core.t_creep_mate$core16894.prototype.cljs$core$IMeta$_meta$arity$1 = function($_16896$$) {
+    return this.meta16895;
+  }, creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL, creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$on_show$arity$1 = function($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$) {
     play_cljs.core.load_image.call(null, creep_mate.core.game, "images/dave.png");
     cljs.core.reset_BANG_.call(null, creep_mate.core.current_fight_action_index, 0);
-    $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = (new cljs.core.Keyword(null, "current-creep", "current-creep", -127669639)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state));
-    $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = cljs.core.map.call(null, function($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$, $G__16922_chunk__16904_16910_seq__16903_16919__$1$$) {
-      return function($G__16922_chunk__16904_16910_seq__16903_16919__$1$$) {
-        return [cljs.core.str((new cljs.core.Keyword(null, "name", "name", 1843675177)).cljs$core$IFn$_invoke$arity$1($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$)), cljs.core.str(": "), cljs.core.str($G__16922_chunk__16904_16910_seq__16903_16919__$1$$)].join("");
+    $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = (new cljs.core.Keyword(null, "current-creep", "current-creep", -127669639)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state));
+    $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = cljs.core.map.call(null, function($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$, $G__16916_chunk__16898_16904_seq__16897_16913__$1$$) {
+      return function($G__16916_chunk__16898_16904_seq__16897_16913__$1$$) {
+        return [cljs.core.str((new cljs.core.Keyword(null, "name", "name", 1843675177)).cljs$core$IFn$_invoke$arity$1($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$)), cljs.core.str(": "), cljs.core.str($G__16916_chunk__16898_16904_seq__16897_16913__$1$$)].join("");
       };
-    }($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$, this), (new cljs.core.Keyword(null, "lines", "lines", -700165781)).cljs$core$IFn$_invoke$arity$1($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$));
-    $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = cljs.core.seq.call(null, $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$);
-    for (var $G__16922_chunk__16904_16910_seq__16903_16919__$1$$ = null, $G__16923_count__16905_16911$$ = 0, $G__16921_i__16906_16912$$ = 0;;) {
-      if ($G__16921_i__16906_16912$$ < $G__16923_count__16905_16911$$) {
-        var $line_16913$$ = cljs.core._nth.call(null, $G__16922_chunk__16904_16910_seq__16903_16919__$1$$, $G__16921_i__16906_16912$$);
-        creep_mate.core.push_dialog_BANG_.call(null, $line_16913$$);
-        $G__16921_i__16906_16912$$ += 1;
+    }($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$, this), (new cljs.core.Keyword(null, "lines", "lines", -700165781)).cljs$core$IFn$_invoke$arity$1($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$));
+    $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = cljs.core.seq.call(null, $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$);
+    for (var $G__16916_chunk__16898_16904_seq__16897_16913__$1$$ = null, $G__16917_count__16899_16905$$ = 0, $G__16915_i__16900_16906$$ = 0;;) {
+      if ($G__16915_i__16900_16906$$ < $G__16917_count__16899_16905$$) {
+        var $line_16907$$ = cljs.core._nth.call(null, $G__16916_chunk__16898_16904_seq__16897_16913__$1$$, $G__16915_i__16900_16906$$);
+        creep_mate.core.push_dialog_BANG_.call(null, $line_16907$$);
+        $G__16915_i__16900_16906$$ += 1;
       } else {
-        if ($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = cljs.core.seq.call(null, $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$)) {
-          $G__16922_chunk__16904_16910_seq__16903_16919__$1$$ = $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$, cljs.core.chunked_seq_QMARK_.call(null, $G__16922_chunk__16904_16910_seq__16903_16919__$1$$) ? ($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = cljs.core.chunk_first.call(null, $G__16922_chunk__16904_16910_seq__16903_16919__$1$$), $G__16921_i__16906_16912$$ = cljs.core.chunk_rest.call(null, 
-          $G__16922_chunk__16904_16910_seq__16903_16919__$1$$), $G__16922_chunk__16904_16910_seq__16903_16919__$1$$ = $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$, $G__16923_count__16905_16911$$ = cljs.core.count.call(null, $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$), $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = 
-          $G__16921_i__16906_16912$$) : ($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = cljs.core.first.call(null, $G__16922_chunk__16904_16910_seq__16903_16919__$1$$), creep_mate.core.push_dialog_BANG_.call(null, $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$), $c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$ = cljs.core.next.call(null, 
-          $G__16922_chunk__16904_16910_seq__16903_16919__$1$$), $G__16922_chunk__16904_16910_seq__16903_16919__$1$$ = null, $G__16923_count__16905_16911$$ = 0), $G__16921_i__16906_16912$$ = 0;
+        if ($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = cljs.core.seq.call(null, $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$)) {
+          $G__16916_chunk__16898_16904_seq__16897_16913__$1$$ = $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$, cljs.core.chunked_seq_QMARK_.call(null, $G__16916_chunk__16898_16904_seq__16897_16913__$1$$) ? ($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = cljs.core.chunk_first.call(null, $G__16916_chunk__16898_16904_seq__16897_16913__$1$$), $G__16915_i__16900_16906$$ = cljs.core.chunk_rest.call(null, 
+          $G__16916_chunk__16898_16904_seq__16897_16913__$1$$), $G__16916_chunk__16898_16904_seq__16897_16913__$1$$ = $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$, $G__16917_count__16899_16905$$ = cljs.core.count.call(null, $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$), $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = 
+          $G__16915_i__16900_16906$$) : ($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = cljs.core.first.call(null, $G__16916_chunk__16898_16904_seq__16897_16913__$1$$), creep_mate.core.push_dialog_BANG_.call(null, $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$), $c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$ = cljs.core.next.call(null, 
+          $G__16916_chunk__16898_16904_seq__16897_16913__$1$$), $G__16916_chunk__16898_16904_seq__16897_16913__$1$$ = null, $G__16917_count__16899_16905$$ = 0), $G__16915_i__16900_16906$$ = 0;
         } else {
           break;
         }
       }
     }
-    return cljs.core.truth_(creep_mate.core.current_dialog.call(null)) ? (creep_mate.core.set_mode_BANG_.call(null, new cljs.core.Keyword(null, "dialog", "dialog", 1415150135)), creep_mate.core.set_dialog_next_BANG_.call(null, function($c__7687__auto___16920_creep_16907_line_16925_lines_16908_seq__16903_16909_temp__4657__auto___16918_this$$$) {
+    return cljs.core.truth_(creep_mate.core.current_dialog.call(null)) ? (creep_mate.core.set_mode_BANG_.call(null, new cljs.core.Keyword(null, "dialog", "dialog", 1415150135)), creep_mate.core.set_dialog_next_BANG_.call(null, function($c__7687__auto___16914_creep_16901_line_16919_lines_16902_seq__16897_16903_temp__4657__auto___16912_this$$$) {
       return function() {
         return creep_mate.core.set_mode_BANG_.call(null, new cljs.core.Keyword(null, "fight-menu", "fight-menu", -1283899782));
       };
     }(this))) : creep_mate.core.set_mode_BANG_.call(null, new cljs.core.Keyword(null, "fight-menu", "fight-menu", -1283899782));
-  }, creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$on_hide$arity$1 = function($this$$$) {
     return battlesound.stop();
-  }, creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
+  }, creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$on_render$arity$1 = function($this$$$) {
     return play_cljs.core.render.call(null, creep_mate.core.game, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 1E3], null), new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, 
     [new cljs.core.Keyword(null, "animation", "animation", -1248293244), new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null, "duration", "duration", 1444101068), 200], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "name", "name", 1843675177), "images/dave.png", new cljs.core.Keyword(null, "x", "x", 2099068185), 
     20, new cljs.core.Keyword(null, "y", "y", -1757859776), 20, new cljs.core.Keyword(null, "width", "width", -384071477), 262, new cljs.core.Keyword(null, "height", "height", 1025178622), 270], null)], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "image", "image", -58725096), new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null, "name", "name", 1843675177), "images/dave.png", new cljs.core.Keyword(null, "x", 
@@ -61541,18 +61526,18 @@ creep_mate.core.fight_screen = function() {
       var $this$$$ = creep_mate.core.current_dialog.call(null);
       return cljs.core.truth_($this$$$) ? creep_mate.core.render_dialog.call(null, $this$$$) : creep_mate.core.render_fight_menu.call(null);
     }()], null));
-  }, creep_mate.core.t_creep_mate$core16900.getBasis = function() {
-    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16901", "meta16901", 1905451023, null)], null);
-  }, creep_mate.core.t_creep_mate$core16900.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16900.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16900", creep_mate.core.t_creep_mate$core16900.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
-    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16900");
-  }, creep_mate.core.__GT_t_creep_mate$core16900 = function($meta16901$$) {
-    return new creep_mate.core.t_creep_mate$core16900($meta16901$$);
+  }, creep_mate.core.t_creep_mate$core16894.getBasis = function() {
+    return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null, "meta16895", "meta16895", 606498846, null)], null);
+  }, creep_mate.core.t_creep_mate$core16894.cljs$lang$type = !0, creep_mate.core.t_creep_mate$core16894.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16894", creep_mate.core.t_creep_mate$core16894.cljs$lang$ctorPrWriter = function($this__7479__auto__$$, $writer__7480__auto__$$, $opt__7481__auto__$$) {
+    return cljs.core._write.call(null, $writer__7480__auto__$$, "creep-mate.core/t_creep_mate$core16894");
+  }, creep_mate.core.__GT_t_creep_mate$core16894 = function($meta16895$$) {
+    return new creep_mate.core.t_creep_mate$core16894($meta16895$$);
   });
-  return new creep_mate.core.t_creep_mate$core16900(cljs.core.PersistentArrayMap.EMPTY);
+  return new creep_mate.core.t_creep_mate$core16894(cljs.core.PersistentArrayMap.EMPTY);
 }();
-var G__16930_16931 = creep_mate.core.game;
-play_cljs.core.start.call(null, G__16930_16931);
-play_cljs.core.set_screen.call(null, G__16930_16931, creep_mate.core.main_screen);
+var G__16924_16925 = creep_mate.core.game;
+play_cljs.core.start.call(null, G__16924_16925);
+play_cljs.core.set_screen.call(null, G__16924_16925, creep_mate.core.main_screen);
 goog.events.listen(window, "keydown", function($event_key$$) {
   $event_key$$ = $event_key$$.keyCode;
   switch((new cljs.core.Keyword(null, "mode", "mode", 654403691)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)) instanceof cljs.core.Keyword ? (new cljs.core.Keyword(null, "mode", "mode", 654403691)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)).fqn : null) {
@@ -61584,6 +61569,27 @@ goog.events.listen(window, "keydown", function($event_key$$) {
           return creep_mate.core.fight.call(null, new cljs.core.Keyword(null, "down", "down", 1565245570));
         case 68:
           return creep_mate.core.fight.call(null, new cljs.core.Keyword(null, "right", "right", -452581833));
+        default:
+          return !1;
+      }
+    ;
+    default:
+      return null;
+  }
+});
+goog.events.listen(window, "keyup", function($event$$1_key$$) {
+  $event$$1_key$$ = $event$$1_key$$.keyCode;
+  switch((new cljs.core.Keyword(null, "mode", "mode", 654403691)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)) instanceof cljs.core.Keyword ? (new cljs.core.Keyword(null, "mode", "mode", 654403691)).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null, creep_mate.core.state)).fqn : null) {
+    case "walk":
+      switch($event$$1_key$$) {
+        case 87:
+          return creep_mate.core.stop_moving.call(null, new cljs.core.Keyword(null, "up", "up", -269712113));
+        case 65:
+          return creep_mate.core.stop_moving.call(null, new cljs.core.Keyword(null, "left", "left", -399115937));
+        case 83:
+          return creep_mate.core.stop_moving.call(null, new cljs.core.Keyword(null, "down", "down", 1565245570));
+        case 68:
+          return creep_mate.core.stop_moving.call(null, new cljs.core.Keyword(null, "right", "right", -452581833));
         default:
           return !1;
       }

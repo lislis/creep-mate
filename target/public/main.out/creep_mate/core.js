@@ -23,7 +23,7 @@ creep_mate.core.game = play_cljs.core.create_game.call(null,creep_mate.core.scre
 }
 if(typeof creep_mate.core.state !== 'undefined'){
 } else {
-creep_mate.core.state = cljs.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"x","x",2099068185),(200),new cljs.core.Keyword(null,"y","y",-1757859776),(280),new cljs.core.Keyword(null,"player-look","player-look",-1562249712),new cljs.core.Keyword(null,"right","right",-452581833),new cljs.core.Keyword(null,"mode","mode",654403691),new cljs.core.Keyword(null,"walk","walk",32921637),new cljs.core.Keyword(null,"creeps","creeps",614323658),creep_mate.core.main_creeps,new cljs.core.Keyword(null,"city-bg","city-bg",1570985489),play_cljs.core.load_image.call(null,creep_mate.core.game,"city.png")], null));
+creep_mate.core.state = cljs.core.atom.call(null,new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"x","x",2099068185),(200),new cljs.core.Keyword(null,"y","y",-1757859776),(280),new cljs.core.Keyword(null,"player-look","player-look",-1562249712),new cljs.core.Keyword(null,"right","right",-452581833),new cljs.core.Keyword(null,"player-moving","player-moving",-1852810861),false,new cljs.core.Keyword(null,"mode","mode",654403691),new cljs.core.Keyword(null,"walk","walk",32921637),new cljs.core.Keyword(null,"creeps","creeps",614323658),creep_mate.core.main_creeps,new cljs.core.Keyword(null,"city-bg","city-bg",1570985489),play_cljs.core.load_image.call(null,creep_mate.core.game,"city.png")], null));
 }
 if(typeof creep_mate.core.dialog_next !== 'undefined'){
 } else {
@@ -159,6 +159,8 @@ creep_mate.core.update_state_BANG_.call(null);
 
 cljs.core.swap_BANG_.call(null,creep_mate.core.state,cljs.core.assoc,new cljs.core.Keyword(null,"player-look","player-look",-1562249712),direction);
 
+cljs.core.swap_BANG_.call(null,creep_mate.core.state,cljs.core.assoc,new cljs.core.Keyword(null,"player-moving","player-moving",-1852810861),true);
+
 var G__16867 = (((direction instanceof cljs.core.Keyword))?direction.fqn:null);
 switch (G__16867) {
 case "left":
@@ -180,6 +182,13 @@ break;
 default:
 throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(direction)].join('')));
 
+}
+});
+creep_mate.core.stop_moving = (function creep_mate$core$stop_moving(direction){
+if(cljs.core._EQ_.call(null,direction,new cljs.core.Keyword(null,"player-look","player-look",-1562249712).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)),cljs.core.swap_BANG_.call(null,creep_mate.core.state,cljs.core.assoc,new cljs.core.Keyword(null,"player-moving","player-moving",-1852810861),false))){
+return null;
+} else {
+return null;
 }
 });
 creep_mate.core.fight = (function creep_mate$core$fight(key){
@@ -271,40 +280,163 @@ throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(direction)
 creep_mate.core.render_creep = (function creep_mate$core$render_creep(creep){
 return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621),new cljs.core.Keyword(null,"height","height",1025178622)],[((creep_mate.core.rendered_y.call(null) + (- new cljs.core.Keyword(null,"y","y",-1757859776).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)))) + new cljs.core.Keyword(null,"y","y",-1757859776).cljs$core$IFn$_invoke$arity$1(creep)),"creep.png",new cljs.core.Keyword(null,"sy","sy",227523849).cljs$core$IFn$_invoke$arity$1(creep),creep_mate.core.player_size,(30),((creep_mate.core.rendered_x.call(null) + (- new cljs.core.Keyword(null,"x","x",2099068185).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)))) + new cljs.core.Keyword(null,"x","x",2099068185).cljs$core$IFn$_invoke$arity$1(creep)),(30),(30),creep_mate.core.player_size])], null)], null);
 });
+creep_mate.core.player_tiles = new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"down","down",1565245570),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"stand","stand",-1484467872),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(2),new cljs.core.Keyword(null,"sy","sy",227523849),(2)], null),new cljs.core.Keyword(null,"walk","walk",32921637),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(2),new cljs.core.Keyword(null,"sy","sy",227523849),(36)], null)], null),new cljs.core.Keyword(null,"up","up",-269712113),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"stand","stand",-1484467872),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(83),new cljs.core.Keyword(null,"sy","sy",227523849),(2)], null),new cljs.core.Keyword(null,"walk","walk",32921637),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(83),new cljs.core.Keyword(null,"sy","sy",227523849),(36)], null)], null),new cljs.core.Keyword(null,"left","left",-399115937),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"stand","stand",-1484467872),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(43),new cljs.core.Keyword(null,"sy","sy",227523849),(2)], null),new cljs.core.Keyword(null,"walk","walk",32921637),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(43),new cljs.core.Keyword(null,"sy","sy",227523849),(36)], null)], null),new cljs.core.Keyword(null,"right","right",-452581833),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"stand","stand",-1484467872),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(120),new cljs.core.Keyword(null,"sy","sy",227523849),(2)], null),new cljs.core.Keyword(null,"walk","walk",32921637),new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"sx","sx",-403071592),(120),new cljs.core.Keyword(null,"sy","sy",227523849),(36)], null)], null)], null);
 creep_mate.core.render_player = (function creep_mate$core$render_player(){
-var stand_down = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(2),creep_mate.core.player_size,(2),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var walk_down = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(36),creep_mate.core.player_size,(2),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var stand_up = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(2),creep_mate.core.player_size,(83),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var walk_up = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(36),creep_mate.core.player_size,(83),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var stand_left = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(2),creep_mate.core.player_size,(43),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var walk_left = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(36),creep_mate.core.player_size,(43),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var stand_right = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(2),creep_mate.core.player_size,(120),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var walk_right = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"y","y",-1757859776),new cljs.core.Keyword(null,"heigth","heigth",914329217),new cljs.core.Keyword(null,"name","name",1843675177),new cljs.core.Keyword(null,"sy","sy",227523849),new cljs.core.Keyword(null,"width","width",-384071477),new cljs.core.Keyword(null,"sx","sx",-403071592),new cljs.core.Keyword(null,"x","x",2099068185),new cljs.core.Keyword(null,"swidth","swidth",-976864420),new cljs.core.Keyword(null,"sheight","sheight",1322250621)],[creep_mate.core.rendered_y.call(null),creep_mate.core.player_size,"player.png",(36),creep_mate.core.player_size,(120),creep_mate.core.rendered_x.call(null),(30),(32)])], null);
-var walking_down = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),stand_down,walk_down], null);
-var walking_up = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),stand_up,walk_up], null);
-var walking_left = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),stand_left,walk_left], null);
-var walking_right = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),stand_right,walk_right], null);
-var pred__16881 = cljs.core._EQ_;
-var expr__16882 = new cljs.core.Keyword(null,"player-look","player-look",-1562249712).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state));
-if(cljs.core.truth_(pred__16881.call(null,new cljs.core.Keyword(null,"up","up",-269712113),expr__16882))){
-return walking_up;
+var direction = new cljs.core.Keyword(null,"player-look","player-look",-1562249712).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state));
+var common = new cljs.core.PersistentArrayMap(null, 7, [new cljs.core.Keyword(null,"name","name",1843675177),"player.png",new cljs.core.Keyword(null,"swidth","swidth",-976864420),(30),new cljs.core.Keyword(null,"sheight","sheight",1322250621),(32),new cljs.core.Keyword(null,"x","x",2099068185),creep_mate.core.rendered_x.call(null),new cljs.core.Keyword(null,"y","y",-1757859776),creep_mate.core.rendered_y.call(null),new cljs.core.Keyword(null,"width","width",-384071477),creep_mate.core.player_size,new cljs.core.Keyword(null,"heigth","heigth",914329217),creep_mate.core.player_size], null);
+var standing = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.merge.call(null,common,new cljs.core.Keyword(null,"stand","stand",-1484467872).cljs$core$IFn$_invoke$arity$1(direction.call(null,creep_mate.core.player_tiles)))], null);
+var walking = new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.merge.call(null,common,new cljs.core.Keyword(null,"stand","stand",-1484467872).cljs$core$IFn$_invoke$arity$1(direction.call(null,creep_mate.core.player_tiles)))], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),cljs.core.merge.call(null,common,new cljs.core.Keyword(null,"walk","walk",32921637).cljs$core$IFn$_invoke$arity$1(direction.call(null,creep_mate.core.player_tiles)))], null)], null);
+if(cljs.core.truth_(new cljs.core.Keyword(null,"player-moving","player-moving",-1852810861).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)))){
+return walking;
 } else {
-if(cljs.core.truth_(pred__16881.call(null,new cljs.core.Keyword(null,"down","down",1565245570),expr__16882))){
-return walking_down;
-} else {
-if(cljs.core.truth_(pred__16881.call(null,new cljs.core.Keyword(null,"left","left",-399115937),expr__16882))){
-return walking_left;
-} else {
-if(cljs.core.truth_(pred__16881.call(null,new cljs.core.Keyword(null,"right","right",-452581833),expr__16882))){
-return walking_right;
-} else {
-throw (new Error([cljs.core.str("No matching clause: "),cljs.core.str(expr__16882)].join('')));
-}
-}
-}
+return standing;
 }
 });
 creep_mate.core.main_screen = (function (){
+if(typeof creep_mate.core.t_creep_mate$core16878 !== 'undefined'){
+} else {
+
+/**
+* @constructor
+ * @implements {play_cljs.core.Screen}
+ * @implements {cljs.core.IMeta}
+ * @implements {cljs.core.IWithMeta}
+*/
+creep_mate.core.t_creep_mate$core16878 = (function (meta16879){
+this.meta16879 = meta16879;
+this.cljs$lang$protocol_mask$partition0$ = 393216;
+this.cljs$lang$protocol_mask$partition1$ = 0;
+})
+creep_mate.core.t_creep_mate$core16878.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_16880,meta16879__$1){
+var self__ = this;
+var _16880__$1 = this;
+return (new creep_mate.core.t_creep_mate$core16878(meta16879__$1));
+});
+
+creep_mate.core.t_creep_mate$core16878.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_16880){
+var self__ = this;
+var _16880__$1 = this;
+return self__.meta16879;
+});
+
+creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL;
+
+creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
+var self__ = this;
+var this$__$1 = this;
+play_cljs.core.load_image.call(null,creep_mate.core.game,"player.png");
+
+play_cljs.core.load_image.call(null,creep_mate.core.game,"creep.png");
+
+bgsound.play();
+
+return creep_mate.core.set_mode_BANG_.call(null,new cljs.core.Keyword(null,"walk","walk",32921637));
+});
+
+creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
+var self__ = this;
+var this$__$1 = this;
+return bgsound.stop();
+});
+
+creep_mate.core.t_creep_mate$core16878.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
+var self__ = this;
+var this$__$1 = this;
+return play_cljs.core.render.call(null,creep_mate.core.game,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [creep_mate.core.render_background.call(null),cljs.core.map.call(null,creep_mate.core.render_creep,new cljs.core.Keyword(null,"creeps","creeps",614323658).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state))),creep_mate.core.render_player.call(null)], null));
+});
+
+creep_mate.core.t_creep_mate$core16878.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta16879","meta16879",1164843332,null)], null);
+});
+
+creep_mate.core.t_creep_mate$core16878.cljs$lang$type = true;
+
+creep_mate.core.t_creep_mate$core16878.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16878";
+
+creep_mate.core.t_creep_mate$core16878.cljs$lang$ctorPrWriter = (function (this__7479__auto__,writer__7480__auto__,opt__7481__auto__){
+return cljs.core._write.call(null,writer__7480__auto__,"creep-mate.core/t_creep_mate$core16878");
+});
+
+creep_mate.core.__GT_t_creep_mate$core16878 = (function creep_mate$core$__GT_t_creep_mate$core16878(meta16879){
+return (new creep_mate.core.t_creep_mate$core16878(meta16879));
+});
+
+}
+
+return (new creep_mate.core.t_creep_mate$core16878(cljs.core.PersistentArrayMap.EMPTY));
+})()
+;
+creep_mate.core.fight_load_screen = (function (){
+if(typeof creep_mate.core.t_creep_mate$core16881 !== 'undefined'){
+} else {
+
+/**
+* @constructor
+ * @implements {play_cljs.core.Screen}
+ * @implements {cljs.core.IMeta}
+ * @implements {cljs.core.IWithMeta}
+*/
+creep_mate.core.t_creep_mate$core16881 = (function (meta16882){
+this.meta16882 = meta16882;
+this.cljs$lang$protocol_mask$partition0$ = 393216;
+this.cljs$lang$protocol_mask$partition1$ = 0;
+})
+creep_mate.core.t_creep_mate$core16881.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_16883,meta16882__$1){
+var self__ = this;
+var _16883__$1 = this;
+return (new creep_mate.core.t_creep_mate$core16881(meta16882__$1));
+});
+
+creep_mate.core.t_creep_mate$core16881.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_16883){
+var self__ = this;
+var _16883__$1 = this;
+return self__.meta16882;
+});
+
+creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL;
+
+creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
+var self__ = this;
+var this$__$1 = this;
+return null;
+});
+
+creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
+var self__ = this;
+var this$__$1 = this;
+return null;
+});
+
+creep_mate.core.t_creep_mate$core16881.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
+var self__ = this;
+var this$__$1 = this;
+play_cljs.core.get_canvas.call(null,creep_mate.core.game).getContext("2d").putImageData(new cljs.core.Keyword(null,"canvas-data","canvas-data",-303423685).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)),(0),(0));
+
+return play_cljs.core.render.call(null,creep_mate.core.game,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"black"], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(0),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(20),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(40),new cljs.core.Keyword(null,"y","y",-1757859776),(40),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(60),new cljs.core.Keyword(null,"y","y",-1757859776),(60),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(80),new cljs.core.Keyword(null,"y","y",-1757859776),(80),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(100),new cljs.core.Keyword(null,"y","y",-1757859776),(100),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(120),new cljs.core.Keyword(null,"y","y",-1757859776),(120),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(140),new cljs.core.Keyword(null,"y","y",-1757859776),(140),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(160),new cljs.core.Keyword(null,"y","y",-1757859776),(160),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(180),new cljs.core.Keyword(null,"y","y",-1757859776),(180),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(200),new cljs.core.Keyword(null,"y","y",-1757859776),(200),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(220),new cljs.core.Keyword(null,"y","y",-1757859776),(220),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(0),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null)], null)], null)], null));
+});
+
+creep_mate.core.t_creep_mate$core16881.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta16882","meta16882",1011206908,null)], null);
+});
+
+creep_mate.core.t_creep_mate$core16881.cljs$lang$type = true;
+
+creep_mate.core.t_creep_mate$core16881.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16881";
+
+creep_mate.core.t_creep_mate$core16881.cljs$lang$ctorPrWriter = (function (this__7479__auto__,writer__7480__auto__,opt__7481__auto__){
+return cljs.core._write.call(null,writer__7480__auto__,"creep-mate.core/t_creep_mate$core16881");
+});
+
+creep_mate.core.__GT_t_creep_mate$core16881 = (function creep_mate$core$__GT_t_creep_mate$core16881(meta16882){
+return (new creep_mate.core.t_creep_mate$core16881(meta16882));
+});
+
+}
+
+return (new creep_mate.core.t_creep_mate$core16881(cljs.core.PersistentArrayMap.EMPTY));
+})()
+;
+creep_mate.core.fight_load_screen_2 = (function (){
 if(typeof creep_mate.core.t_creep_mate$core16884 !== 'undefined'){
 } else {
 
@@ -336,25 +468,21 @@ creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$ = cljs.c
 creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
 var self__ = this;
 var this$__$1 = this;
-play_cljs.core.load_image.call(null,creep_mate.core.game,"player.png");
-
-play_cljs.core.load_image.call(null,creep_mate.core.game,"creep.png");
-
-bgsound.play();
-
-return creep_mate.core.set_mode_BANG_.call(null,new cljs.core.Keyword(null,"walk","walk",32921637));
+return null;
 });
 
 creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
 var self__ = this;
 var this$__$1 = this;
-return bgsound.stop();
+return null;
 });
 
 creep_mate.core.t_creep_mate$core16884.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
 var self__ = this;
 var this$__$1 = this;
-return play_cljs.core.render.call(null,creep_mate.core.game,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [creep_mate.core.render_background.call(null),cljs.core.map.call(null,creep_mate.core.render_creep,new cljs.core.Keyword(null,"creeps","creeps",614323658).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state))),creep_mate.core.render_player.call(null)], null));
+return play_cljs.core.render.call(null,creep_mate.core.game,(function (){var creep = new cljs.core.Keyword(null,"current-creep","current-creep",-127669639).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state));
+return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [creep_mate.core.render_fight_background.call(null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"white"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"value","value",305978217),[cljs.core.str("creepy "),cljs.core.str(new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(creep)),cljs.core.str(" "),cljs.core.str(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(creep)),cljs.core.str("\n"),cljs.core.str("wants to fight!")].join(''),new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),((creep_mate.core.screen_y / (2)) - (20)),new cljs.core.Keyword(null,"size","size",1098693007),(40),new cljs.core.Keyword(null,"font","font",-1506159249),"Courier"], null)], null)], null)], null);
+})());
 });
 
 creep_mate.core.t_creep_mate$core16884.getBasis = (function (){
@@ -378,146 +506,6 @@ return (new creep_mate.core.t_creep_mate$core16884(meta16885));
 return (new creep_mate.core.t_creep_mate$core16884(cljs.core.PersistentArrayMap.EMPTY));
 })()
 ;
-creep_mate.core.fight_load_screen = (function (){
-if(typeof creep_mate.core.t_creep_mate$core16887 !== 'undefined'){
-} else {
-
-/**
-* @constructor
- * @implements {play_cljs.core.Screen}
- * @implements {cljs.core.IMeta}
- * @implements {cljs.core.IWithMeta}
-*/
-creep_mate.core.t_creep_mate$core16887 = (function (meta16888){
-this.meta16888 = meta16888;
-this.cljs$lang$protocol_mask$partition0$ = 393216;
-this.cljs$lang$protocol_mask$partition1$ = 0;
-})
-creep_mate.core.t_creep_mate$core16887.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_16889,meta16888__$1){
-var self__ = this;
-var _16889__$1 = this;
-return (new creep_mate.core.t_creep_mate$core16887(meta16888__$1));
-});
-
-creep_mate.core.t_creep_mate$core16887.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_16889){
-var self__ = this;
-var _16889__$1 = this;
-return self__.meta16888;
-});
-
-creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL;
-
-creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
-var self__ = this;
-var this$__$1 = this;
-return null;
-});
-
-creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
-var self__ = this;
-var this$__$1 = this;
-return null;
-});
-
-creep_mate.core.t_creep_mate$core16887.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
-var self__ = this;
-var this$__$1 = this;
-play_cljs.core.get_canvas.call(null,creep_mate.core.game).getContext("2d").putImageData(new cljs.core.Keyword(null,"canvas-data","canvas-data",-303423685).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)),(0),(0));
-
-return play_cljs.core.render.call(null,creep_mate.core.game,new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"black"], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),new cljs.core.PersistentVector(null, 12, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(0),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(20),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(40),new cljs.core.Keyword(null,"y","y",-1757859776),(40),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(60),new cljs.core.Keyword(null,"y","y",-1757859776),(60),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(80),new cljs.core.Keyword(null,"y","y",-1757859776),(80),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(100),new cljs.core.Keyword(null,"y","y",-1757859776),(100),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(120),new cljs.core.Keyword(null,"y","y",-1757859776),(120),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(140),new cljs.core.Keyword(null,"y","y",-1757859776),(140),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(160),new cljs.core.Keyword(null,"y","y",-1757859776),(160),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(180),new cljs.core.Keyword(null,"y","y",-1757859776),(180),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(200),new cljs.core.Keyword(null,"y","y",-1757859776),(200),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(220),new cljs.core.Keyword(null,"y","y",-1757859776),(220),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null)], null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(0),new cljs.core.Keyword(null,"width","width",-384071477),(20),new cljs.core.Keyword(null,"height","height",1025178622),(20)], null)], null)], null)], null)], null));
-});
-
-creep_mate.core.t_creep_mate$core16887.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta16888","meta16888",1707212575,null)], null);
-});
-
-creep_mate.core.t_creep_mate$core16887.cljs$lang$type = true;
-
-creep_mate.core.t_creep_mate$core16887.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16887";
-
-creep_mate.core.t_creep_mate$core16887.cljs$lang$ctorPrWriter = (function (this__7479__auto__,writer__7480__auto__,opt__7481__auto__){
-return cljs.core._write.call(null,writer__7480__auto__,"creep-mate.core/t_creep_mate$core16887");
-});
-
-creep_mate.core.__GT_t_creep_mate$core16887 = (function creep_mate$core$__GT_t_creep_mate$core16887(meta16888){
-return (new creep_mate.core.t_creep_mate$core16887(meta16888));
-});
-
-}
-
-return (new creep_mate.core.t_creep_mate$core16887(cljs.core.PersistentArrayMap.EMPTY));
-})()
-;
-creep_mate.core.fight_load_screen_2 = (function (){
-if(typeof creep_mate.core.t_creep_mate$core16890 !== 'undefined'){
-} else {
-
-/**
-* @constructor
- * @implements {play_cljs.core.Screen}
- * @implements {cljs.core.IMeta}
- * @implements {cljs.core.IWithMeta}
-*/
-creep_mate.core.t_creep_mate$core16890 = (function (meta16891){
-this.meta16891 = meta16891;
-this.cljs$lang$protocol_mask$partition0$ = 393216;
-this.cljs$lang$protocol_mask$partition1$ = 0;
-})
-creep_mate.core.t_creep_mate$core16890.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_16892,meta16891__$1){
-var self__ = this;
-var _16892__$1 = this;
-return (new creep_mate.core.t_creep_mate$core16890(meta16891__$1));
-});
-
-creep_mate.core.t_creep_mate$core16890.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_16892){
-var self__ = this;
-var _16892__$1 = this;
-return self__.meta16891;
-});
-
-creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL;
-
-creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
-var self__ = this;
-var this$__$1 = this;
-return null;
-});
-
-creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
-var self__ = this;
-var this$__$1 = this;
-return null;
-});
-
-creep_mate.core.t_creep_mate$core16890.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
-var self__ = this;
-var this$__$1 = this;
-return play_cljs.core.render.call(null,creep_mate.core.game,(function (){var creep = new cljs.core.Keyword(null,"current-creep","current-creep",-127669639).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state));
-return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [creep_mate.core.render_fight_background.call(null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"white"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"value","value",305978217),[cljs.core.str("creepy "),cljs.core.str(new cljs.core.Keyword(null,"title","title",636505583).cljs$core$IFn$_invoke$arity$1(creep)),cljs.core.str(" "),cljs.core.str(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(creep)),cljs.core.str("\n"),cljs.core.str("wants to fight!")].join(''),new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),((creep_mate.core.screen_y / (2)) - (20)),new cljs.core.Keyword(null,"size","size",1098693007),(40),new cljs.core.Keyword(null,"font","font",-1506159249),"Courier"], null)], null)], null)], null);
-})());
-});
-
-creep_mate.core.t_creep_mate$core16890.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta16891","meta16891",-1906046879,null)], null);
-});
-
-creep_mate.core.t_creep_mate$core16890.cljs$lang$type = true;
-
-creep_mate.core.t_creep_mate$core16890.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16890";
-
-creep_mate.core.t_creep_mate$core16890.cljs$lang$ctorPrWriter = (function (this__7479__auto__,writer__7480__auto__,opt__7481__auto__){
-return cljs.core._write.call(null,writer__7480__auto__,"creep-mate.core/t_creep_mate$core16890");
-});
-
-creep_mate.core.__GT_t_creep_mate$core16890 = (function creep_mate$core$__GT_t_creep_mate$core16890(meta16891){
-return (new creep_mate.core.t_creep_mate$core16890(meta16891));
-});
-
-}
-
-return (new creep_mate.core.t_creep_mate$core16890(cljs.core.PersistentArrayMap.EMPTY));
-})()
-;
 creep_mate.core.render_dialog = (function creep_mate$core$render_dialog(msg){
 return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"lightgrey"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(creep_mate.core.screen_y - (200)),new cljs.core.Keyword(null,"width","width",-384071477),creep_mate.core.screen_x,new cljs.core.Keyword(null,"height","height",1025178622),(200)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"black"], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"value","value",305978217),msg,new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(60),new cljs.core.Keyword(null,"size","size",1098693007),(30),new cljs.core.Keyword(null,"font","font",-1506159249),"Courier"], null)], null)], null)], null)], null);
 });
@@ -525,16 +513,16 @@ creep_mate.core.prefix_fight_menu_action = (function creep_mate$core$prefix_figh
 return [cljs.core.str(((cljs.core._EQ_.call(null,creep_mate.core.fight_action_index.call(null),i))?"> ":"  ")),cljs.core.str(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(action))].join('');
 });
 creep_mate.core.render_fight_menu = (function creep_mate$core$render_fight_menu(){
-return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"lightgrey"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(creep_mate.core.screen_y - (200)),new cljs.core.Keyword(null,"width","width",-384071477),creep_mate.core.screen_x,new cljs.core.Keyword(null,"height","height",1025178622),(200)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"black"], null),(function (){var vec__16896 = cljs.core.deref.call(null,creep_mate.core.fight_actions);
-var a = cljs.core.nth.call(null,vec__16896,(0),null);
-var b = cljs.core.nth.call(null,vec__16896,(1),null);
-var c = cljs.core.nth.call(null,vec__16896,(2),null);
-var d = cljs.core.nth.call(null,vec__16896,(3),null);
+return new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"lightgrey"], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"rect","rect",-108902628),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(creep_mate.core.screen_y - (200)),new cljs.core.Keyword(null,"width","width",-384071477),creep_mate.core.screen_x,new cljs.core.Keyword(null,"height","height",1025178622),(200)], null),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"fill","fill",883462889),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"color","color",1011675173),"black"], null),(function (){var vec__16890 = cljs.core.deref.call(null,creep_mate.core.fight_actions);
+var a = cljs.core.nth.call(null,vec__16890,(0),null);
+var b = cljs.core.nth.call(null,vec__16890,(1),null);
+var c = cljs.core.nth.call(null,vec__16890,(2),null);
+var d = cljs.core.nth.call(null,vec__16890,(3),null);
 return new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"value","value",305978217),creep_mate.core.prefix_fight_menu_action.call(null,(0),a),new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(60),new cljs.core.Keyword(null,"size","size",1098693007),(30),new cljs.core.Keyword(null,"font","font",-1506159249),"Courier"], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"text","text",-1790561697),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"value","value",305978217),creep_mate.core.prefix_fight_menu_action.call(null,(1),b),new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(120),new cljs.core.Keyword(null,"size","size",1098693007),(30),new cljs.core.Keyword(null,"font","font",-1506159249),"Courier"], null)], null)], null);
 })()], null)], null)], null);
 });
 creep_mate.core.fight_screen = (function (){
-if(typeof creep_mate.core.t_creep_mate$core16900 !== 'undefined'){
+if(typeof creep_mate.core.t_creep_mate$core16894 !== 'undefined'){
 } else {
 
 /**
@@ -543,83 +531,83 @@ if(typeof creep_mate.core.t_creep_mate$core16900 !== 'undefined'){
  * @implements {cljs.core.IMeta}
  * @implements {cljs.core.IWithMeta}
 */
-creep_mate.core.t_creep_mate$core16900 = (function (meta16901){
-this.meta16901 = meta16901;
+creep_mate.core.t_creep_mate$core16894 = (function (meta16895){
+this.meta16895 = meta16895;
 this.cljs$lang$protocol_mask$partition0$ = 393216;
 this.cljs$lang$protocol_mask$partition1$ = 0;
 })
-creep_mate.core.t_creep_mate$core16900.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_16902,meta16901__$1){
+creep_mate.core.t_creep_mate$core16894.prototype.cljs$core$IWithMeta$_with_meta$arity$2 = (function (_16896,meta16895__$1){
 var self__ = this;
-var _16902__$1 = this;
-return (new creep_mate.core.t_creep_mate$core16900(meta16901__$1));
+var _16896__$1 = this;
+return (new creep_mate.core.t_creep_mate$core16894(meta16895__$1));
 });
 
-creep_mate.core.t_creep_mate$core16900.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_16902){
+creep_mate.core.t_creep_mate$core16894.prototype.cljs$core$IMeta$_meta$arity$1 = (function (_16896){
 var self__ = this;
-var _16902__$1 = this;
-return self__.meta16901;
+var _16896__$1 = this;
+return self__.meta16895;
 });
 
-creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL;
+creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$ = cljs.core.PROTOCOL_SENTINEL;
 
-creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
+creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$on_show$arity$1 = (function (this$){
 var self__ = this;
 var this$__$1 = this;
 play_cljs.core.load_image.call(null,creep_mate.core.game,"images/dave.png");
 
 cljs.core.reset_BANG_.call(null,creep_mate.core.current_fight_action_index,(0));
 
-var creep_16907 = new cljs.core.Keyword(null,"current-creep","current-creep",-127669639).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state));
-var lines_16908 = cljs.core.map.call(null,((function (creep_16907,this$__$1){
-return (function (p1__16899_SHARP_){
-return [cljs.core.str(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(creep_16907)),cljs.core.str(": "),cljs.core.str(p1__16899_SHARP_)].join('');
-});})(creep_16907,this$__$1))
-,new cljs.core.Keyword(null,"lines","lines",-700165781).cljs$core$IFn$_invoke$arity$1(creep_16907));
-var seq__16903_16909 = cljs.core.seq.call(null,lines_16908);
-var chunk__16904_16910 = null;
-var count__16905_16911 = (0);
-var i__16906_16912 = (0);
+var creep_16901 = new cljs.core.Keyword(null,"current-creep","current-creep",-127669639).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state));
+var lines_16902 = cljs.core.map.call(null,((function (creep_16901,this$__$1){
+return (function (p1__16893_SHARP_){
+return [cljs.core.str(new cljs.core.Keyword(null,"name","name",1843675177).cljs$core$IFn$_invoke$arity$1(creep_16901)),cljs.core.str(": "),cljs.core.str(p1__16893_SHARP_)].join('');
+});})(creep_16901,this$__$1))
+,new cljs.core.Keyword(null,"lines","lines",-700165781).cljs$core$IFn$_invoke$arity$1(creep_16901));
+var seq__16897_16903 = cljs.core.seq.call(null,lines_16902);
+var chunk__16898_16904 = null;
+var count__16899_16905 = (0);
+var i__16900_16906 = (0);
 while(true){
-if((i__16906_16912 < count__16905_16911)){
-var line_16913 = cljs.core._nth.call(null,chunk__16904_16910,i__16906_16912);
-creep_mate.core.push_dialog_BANG_.call(null,line_16913);
+if((i__16900_16906 < count__16899_16905)){
+var line_16907 = cljs.core._nth.call(null,chunk__16898_16904,i__16900_16906);
+creep_mate.core.push_dialog_BANG_.call(null,line_16907);
 
-var G__16914 = seq__16903_16909;
-var G__16915 = chunk__16904_16910;
-var G__16916 = count__16905_16911;
-var G__16917 = (i__16906_16912 + (1));
-seq__16903_16909 = G__16914;
-chunk__16904_16910 = G__16915;
-count__16905_16911 = G__16916;
-i__16906_16912 = G__16917;
+var G__16908 = seq__16897_16903;
+var G__16909 = chunk__16898_16904;
+var G__16910 = count__16899_16905;
+var G__16911 = (i__16900_16906 + (1));
+seq__16897_16903 = G__16908;
+chunk__16898_16904 = G__16909;
+count__16899_16905 = G__16910;
+i__16900_16906 = G__16911;
 continue;
 } else {
-var temp__4657__auto___16918 = cljs.core.seq.call(null,seq__16903_16909);
-if(temp__4657__auto___16918){
-var seq__16903_16919__$1 = temp__4657__auto___16918;
-if(cljs.core.chunked_seq_QMARK_.call(null,seq__16903_16919__$1)){
-var c__7687__auto___16920 = cljs.core.chunk_first.call(null,seq__16903_16919__$1);
-var G__16921 = cljs.core.chunk_rest.call(null,seq__16903_16919__$1);
-var G__16922 = c__7687__auto___16920;
-var G__16923 = cljs.core.count.call(null,c__7687__auto___16920);
-var G__16924 = (0);
-seq__16903_16909 = G__16921;
-chunk__16904_16910 = G__16922;
-count__16905_16911 = G__16923;
-i__16906_16912 = G__16924;
+var temp__4657__auto___16912 = cljs.core.seq.call(null,seq__16897_16903);
+if(temp__4657__auto___16912){
+var seq__16897_16913__$1 = temp__4657__auto___16912;
+if(cljs.core.chunked_seq_QMARK_.call(null,seq__16897_16913__$1)){
+var c__7687__auto___16914 = cljs.core.chunk_first.call(null,seq__16897_16913__$1);
+var G__16915 = cljs.core.chunk_rest.call(null,seq__16897_16913__$1);
+var G__16916 = c__7687__auto___16914;
+var G__16917 = cljs.core.count.call(null,c__7687__auto___16914);
+var G__16918 = (0);
+seq__16897_16903 = G__16915;
+chunk__16898_16904 = G__16916;
+count__16899_16905 = G__16917;
+i__16900_16906 = G__16918;
 continue;
 } else {
-var line_16925 = cljs.core.first.call(null,seq__16903_16919__$1);
-creep_mate.core.push_dialog_BANG_.call(null,line_16925);
+var line_16919 = cljs.core.first.call(null,seq__16897_16913__$1);
+creep_mate.core.push_dialog_BANG_.call(null,line_16919);
 
-var G__16926 = cljs.core.next.call(null,seq__16903_16919__$1);
-var G__16927 = null;
-var G__16928 = (0);
-var G__16929 = (0);
-seq__16903_16909 = G__16926;
-chunk__16904_16910 = G__16927;
-count__16905_16911 = G__16928;
-i__16906_16912 = G__16929;
+var G__16920 = cljs.core.next.call(null,seq__16897_16913__$1);
+var G__16921 = null;
+var G__16922 = (0);
+var G__16923 = (0);
+seq__16897_16903 = G__16920;
+chunk__16898_16904 = G__16921;
+count__16899_16905 = G__16922;
+i__16900_16906 = G__16923;
 continue;
 }
 } else {
@@ -641,13 +629,13 @@ return creep_mate.core.set_mode_BANG_.call(null,new cljs.core.Keyword(null,"figh
 }
 });
 
-creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
+creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$on_hide$arity$1 = (function (this$){
 var self__ = this;
 var this$__$1 = this;
 return battlesound.stop();
 });
 
-creep_mate.core.t_creep_mate$core16900.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
+creep_mate.core.t_creep_mate$core16894.prototype.play_cljs$core$Screen$on_render$arity$1 = (function (this$){
 var self__ = this;
 var this$__$1 = this;
 return play_cljs.core.render.call(null,creep_mate.core.game,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(1000)], null),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"animation","animation",-1248293244),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"duration","duration",1444101068),(200)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"name","name",1843675177),"images/dave.png",new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(20),new cljs.core.Keyword(null,"width","width",-384071477),(262),new cljs.core.Keyword(null,"height","height",1025178622),(270)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"name","name",1843675177),"images/dave.png",new cljs.core.Keyword(null,"x","x",2099068185),(30),new cljs.core.Keyword(null,"y","y",-1757859776),(20),new cljs.core.Keyword(null,"width","width",-384071477),(262),new cljs.core.Keyword(null,"height","height",1025178622),(270)], null)], null)], null),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"image","image",-58725096),new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"name","name",1843675177),"images/dave.png",new cljs.core.Keyword(null,"x","x",2099068185),(20),new cljs.core.Keyword(null,"y","y",-1757859776),(20),new cljs.core.Keyword(null,"width","width",-384071477),(262),new cljs.core.Keyword(null,"height","height",1025178622),(270)], null)], null)], null),(function (){var temp__4655__auto__ = creep_mate.core.current_dialog.call(null);
@@ -660,39 +648,39 @@ return creep_mate.core.render_fight_menu.call(null);
 })()], null));
 });
 
-creep_mate.core.t_creep_mate$core16900.getBasis = (function (){
-return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta16901","meta16901",1905451023,null)], null);
+creep_mate.core.t_creep_mate$core16894.getBasis = (function (){
+return new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Symbol(null,"meta16895","meta16895",606498846,null)], null);
 });
 
-creep_mate.core.t_creep_mate$core16900.cljs$lang$type = true;
+creep_mate.core.t_creep_mate$core16894.cljs$lang$type = true;
 
-creep_mate.core.t_creep_mate$core16900.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16900";
+creep_mate.core.t_creep_mate$core16894.cljs$lang$ctorStr = "creep-mate.core/t_creep_mate$core16894";
 
-creep_mate.core.t_creep_mate$core16900.cljs$lang$ctorPrWriter = (function (this__7479__auto__,writer__7480__auto__,opt__7481__auto__){
-return cljs.core._write.call(null,writer__7480__auto__,"creep-mate.core/t_creep_mate$core16900");
+creep_mate.core.t_creep_mate$core16894.cljs$lang$ctorPrWriter = (function (this__7479__auto__,writer__7480__auto__,opt__7481__auto__){
+return cljs.core._write.call(null,writer__7480__auto__,"creep-mate.core/t_creep_mate$core16894");
 });
 
-creep_mate.core.__GT_t_creep_mate$core16900 = (function creep_mate$core$__GT_t_creep_mate$core16900(meta16901){
-return (new creep_mate.core.t_creep_mate$core16900(meta16901));
+creep_mate.core.__GT_t_creep_mate$core16894 = (function creep_mate$core$__GT_t_creep_mate$core16894(meta16895){
+return (new creep_mate.core.t_creep_mate$core16894(meta16895));
 });
 
 }
 
-return (new creep_mate.core.t_creep_mate$core16900(cljs.core.PersistentArrayMap.EMPTY));
+return (new creep_mate.core.t_creep_mate$core16894(cljs.core.PersistentArrayMap.EMPTY));
 })()
 ;
-var G__16930_16931 = creep_mate.core.game;
-play_cljs.core.start.call(null,G__16930_16931);
+var G__16924_16925 = creep_mate.core.game;
+play_cljs.core.start.call(null,G__16924_16925);
 
-play_cljs.core.set_screen.call(null,G__16930_16931,creep_mate.core.main_screen);
+play_cljs.core.set_screen.call(null,G__16924_16925,creep_mate.core.main_screen);
 
 goog.events.listen(window,"keydown",(function (event){
 var key = event.keyCode;
-var G__16932 = (((new cljs.core.Keyword(null,"mode","mode",654403691).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)) instanceof cljs.core.Keyword))?new cljs.core.Keyword(null,"mode","mode",654403691).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)).fqn:null);
-switch (G__16932) {
+var G__16926 = (((new cljs.core.Keyword(null,"mode","mode",654403691).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)) instanceof cljs.core.Keyword))?new cljs.core.Keyword(null,"mode","mode",654403691).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)).fqn:null);
+switch (G__16926) {
 case "walk":
-var G__16933 = key;
-switch (G__16933) {
+var G__16927 = key;
+switch (G__16927) {
 case (87):
 return creep_mate.core.move.call(null,new cljs.core.Keyword(null,"up","up",-269712113));
 
@@ -730,8 +718,8 @@ return null;
 
 break;
 case "fight-menu":
-var G__16934 = key;
-switch (G__16934) {
+var G__16928 = key;
+switch (G__16928) {
 case (13):
 return creep_mate.core.fight.call(null,new cljs.core.Keyword(null,"enter","enter",1792452624));
 
@@ -750,6 +738,40 @@ return creep_mate.core.fight.call(null,new cljs.core.Keyword(null,"down","down",
 break;
 case (68):
 return creep_mate.core.fight.call(null,new cljs.core.Keyword(null,"right","right",-452581833));
+
+break;
+default:
+return false;
+
+}
+
+break;
+default:
+return null;
+
+}
+}));
+goog.events.listen(window,"keyup",(function (event){
+var key = event.keyCode;
+var G__16932 = (((new cljs.core.Keyword(null,"mode","mode",654403691).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)) instanceof cljs.core.Keyword))?new cljs.core.Keyword(null,"mode","mode",654403691).cljs$core$IFn$_invoke$arity$1(cljs.core.deref.call(null,creep_mate.core.state)).fqn:null);
+switch (G__16932) {
+case "walk":
+var G__16933 = key;
+switch (G__16933) {
+case (87):
+return creep_mate.core.stop_moving.call(null,new cljs.core.Keyword(null,"up","up",-269712113));
+
+break;
+case (65):
+return creep_mate.core.stop_moving.call(null,new cljs.core.Keyword(null,"left","left",-399115937));
+
+break;
+case (83):
+return creep_mate.core.stop_moving.call(null,new cljs.core.Keyword(null,"down","down",1565245570));
+
+break;
+case (68):
+return creep_mate.core.stop_moving.call(null,new cljs.core.Keyword(null,"right","right",-452581833));
 
 break;
 default:
