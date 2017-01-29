@@ -1,4 +1,4 @@
-heroku:
+deploy:
 	heroku git:remote -a creep-mate
 	boot build
 	mv target target-tmp
