@@ -217,9 +217,7 @@
             :x (+ (rendered-x) (- (:x @state)) (:x creep))
             :y (+ (rendered-y) (- (:y @state)) (:y creep))
             :width player-size
-            :height player-size}
-    [:fill {:color "white"}
-     [:rect (field-of-vision creep)]]]])
+            :height player-size}]])
 
 (defn render-player
   []
