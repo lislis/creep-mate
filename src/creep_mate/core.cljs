@@ -6,29 +6,32 @@
 (def player-size 20)
 (def screen-x 800)
 (def screen-y 600)
+(def navigator (js->clj (.-navigator js/window)))
+(def user-agent (.-userAgent navigator))
 
 (def main-creeps
-  #{{:x 100 :y -40 :direction :down
+  #{{:x 50 :y 210 :direction :up
      :title "congressman" :name "dave",
      :lines ["hello honey, can i get your number?"
              "also, i am going to take away your\nreproductive rights!"]}
-    {:x 200 :y -40 :direction :right
+    {:x -50 :y 50 :direction :right
      :title "beauty industry" :name "steve"
      :lines ["hey babe, can i take a peek at you?"
              "also, i am going to make clothes\nthat will never fit you!"
              "without pockets!"]}
-    {:x 300 :y -40 :direction :up
+    {:x 220 :y 30 :direction :down
      :title "twitter egg" :name "john"
      :lines []}
-    {:x 400 :y -40 :direction :left
+    {:x 340 :y 200 :direction :left
      :title "techie" :name "james",
      :lines []}})
 
 (defonce game (p/create-game screen-x screen-y))
 (defonce state
-  (atom {:x 0 :y 0
+  (atom {:x 200 :y 280
          :mode :walk
-         :creeps #{}}))
+         :creeps #{}
+         :city-bg (p/load-image game "city.png")}))
 (defonce dialog-next (atom #()))
 (defonce dialog-buffer (atom []))
 ; (defonce fight-actions
@@ -59,13 +62,14 @@
   (swap! state assoc :mode :loading)
   (swap! state assoc :current-creep current-creep)
   (js/battlesound.play)
-  (glitch-canvas!)
+  (when (not (seq (re-seq #"Firefox" (str user-agent))))
+    (glitch-canvas!))
   (swap! state assoc :canvas-data
-    (-> (p/get-canvas game)
-        (.getContext "2d")
-        (.getImageData 0 0
-          (.-width (p/get-canvas game))
-          (.-height (p/get-canvas game)))))
+         (-> (p/get-canvas game)
+             (.getContext "2d")
+             (.getImageData 0 0
+                            (.-width (p/get-canvas game))
+                            (.-height (p/get-canvas game)))))
   (p/set-screen game fight-load-screen)
   (js/setTimeout #(p/set-screen game fight-load-screen-2) 2000)
   (js/setTimeout #(p/set-screen game fight-screen) 5000))
@@ -80,18 +84,18 @@
         fov-top fov-y-abs
         fov-bottom (+ fov-y-abs (:height fov))]
     (and
-      (or (< fov-left
-             (+ (:x @state) player-size)
-             fov-right)
-          (< fov-left
-             (:x @state)
-             fov-right))
-       (or (< fov-top
-              (+ (:y @state) player-size)
-              fov-bottom)
-           (< fov-top
-              (:y @state)
-              fov-bottom)))))
+     (or (< fov-left
+            (+ (:x @state) player-size)
+            fov-right)
+         (< fov-left
+            (:x @state)
+            fov-right))
+     (or (< fov-top
+            (+ (:y @state) player-size)
+            fov-bottom)
+         (< fov-top
+            (:y @state)
+            fov-bottom)))))
 
 (defn check-creeps!
   []
@@ -123,8 +127,9 @@
 
 (defn render-background
   []
-  [:fill {:color "#ddd"}
-    [:rect {:x 0 :y 0 :width screen-x :height screen-y}]])
+  [:fill {:color "#A0A0A4ww"}
+   [:rect {:x 0 :y 0 :width screen-x :height screen-y}]
+   [:image {:value (:city-bg @state) :x (- (:x @state)) :y (- (:y @state)) :width 1200 :height 900}]])
 
 (defn render-fight-background
   []
@@ -188,7 +193,7 @@
     (on-render [this]
       (p/render game
         [(render-background)
-         (render-house 40 40 100 40)
+         (render-house 25 -75 165 100)
          (map render-creep (:creeps @state))
          (render-player)]))))
 
