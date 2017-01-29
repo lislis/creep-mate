@@ -158,10 +158,14 @@
     :up (swap! state assoc :y (- (:y @state) speed))
     :down (swap! state assoc :y (+ (:y @state) speed))))
 
+(defn stop-moving!
+  []
+  (swap! state assoc :player-moving false))
+
 (defn stop-moving
   [direction]
   (when (= direction (:player-look @state)
-    (swap! state assoc :player-moving false))))
+    (stop-moving!))))
 
 (defn fight
   [key]
@@ -258,6 +262,7 @@
       (p/load-image game "player.png")
       (p/load-image game "creep.png")
       (js/bgsound.play)
+      (stop-moving!)
       (set-mode! :walk))
     (on-hide [this]
       (js/bgsound.stop))
