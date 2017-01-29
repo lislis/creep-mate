@@ -1,4 +1,19 @@
-## Introduction
+# Creep Mate
 
-A play-cljs game in which ... well, that part is up to you. Do `boot run` to develop and `boot build` to compile a release version.
+## Install
 
+* Creep Mate depends on [boot-clj](http://boot-clj.com/)
+
+## Play
+
+To run and play the game locally, run:
+
+    $ boot run
+
+## Build
+
+To build a static version of the game that you can install on a server, run:
+
+    $ boot build
+
+And copy the files from `target/public`.
