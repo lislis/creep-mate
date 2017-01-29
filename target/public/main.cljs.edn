@@ -1,0 +1,5 @@
+{:require  [creep-mate.core]
+ :init-fns []
+ :compiler-options {:infer-externs true
+                    :pseudo-names true
+                    :pretty-print true}}
