@@ -4,6 +4,8 @@ A game about street harassment.
 
 [Play it online!](https://creep-mate.herokuapp.com/)
 
+![screencap](screencap.gif)
+
 ## Install
 
 * Creep Mate depends on [boot-clj](http://boot-clj.com/)
