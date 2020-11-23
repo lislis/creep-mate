@@ -4,7 +4,7 @@ A game about street harassment.
 
 [Play it online!](https://creep-mate.herokuapp.com/)
 
-![screencap](screencap.gif)
+![screencap](creep-mate.gif)
 
 ## Install
 
